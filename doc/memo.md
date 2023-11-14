@@ -9,3 +9,7 @@
 `source env/bin/activate`
 
 `pip3 install -r requirements.txt`
+
+`flask run --debug`
+
+http://localhost:5000/
