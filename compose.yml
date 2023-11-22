@@ -1,0 +1,30 @@
+services:
+
+  app:
+    build:
+      dockerfile: app.dev.dockerfile
+    volumes:
+      - ./app:/opt/citheron
+    environment:
+      CITHERON_LOG_FILE: ./log/citheron.dev.log
+      CITHERON_DATABASE_HOST: localhost
+      CITHERON_DATABASE_PORT: 5432
+      CITHERON_DATABASE_DBNAME: citheron
+      CITHERON_DATABASE_USER: postgres
+      CITHERON_DATABASE_PASSWORD: secret
+      CITHERON_JWT_KEY: secret
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    command: /opt/citheron/run.dev.sh
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: citheron
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+    ports:
+      - 5432:5432
