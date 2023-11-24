@@ -7,9 +7,10 @@ import re
 
 from flask import Flask, request, Response, abort
 from flask_sqlalchemy import SQLAlchemy
-from flask_httpauth import HTTPTokenAuth
+from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth, MultiAuth
 from werkzeug.exceptions import HTTPException
 import jwt
+import argon2
 
 import model
 from model import db
@@ -55,12 +56,43 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql+psycopg2://{CITHERON_DATABA
 
 db.init_app(app)
 
-auth = HTTPTokenAuth(scheme="Bearer")
+pwhasher = argon2.PasswordHasher()
 
 def get_unix_time():
     return int(time.time())
 
-@auth.verify_token
+def argon2_verify(hash, password):
+    try:
+        pwhasher.verify(hash, password)
+    except:
+        return False
+    return True
+
+def check_user_credentials(username, password):
+    query = db.session.query(model.user).filter_by(name=username)
+    if query.count() == 0: return False
+    entry = query.first()
+    if not entry.enabled: return False
+    return argon2_verify(entry.pwhash, password)
+
+def is_admin(username):
+    admins = ["admin"]
+    return username in admins
+
+def check_email(email):
+    if len(email.encode('utf-8')) > 254: return False
+    return bool(re.match(r"^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,}$", email))
+
+basic_auth = HTTPBasicAuth()
+token_auth = HTTPTokenAuth(scheme="Bearer")
+multi_auth = MultiAuth(basic_auth, token_auth)
+
+@basic_auth.verify_password
+def verify_password(username, password):
+    if check_user_credentials(username, password):
+        return username
+
+@token_auth.verify_token
 def verify_token(token):
     try:
         payload = jwt.decode(token, CITHERON_JWT_KEY, algorithms=["HS256"])
@@ -70,43 +102,24 @@ def verify_token(token):
     except:
         return False
 
-def check_user_credentials(username, password):
-    if username == "helga" and password == "secret": return True
-    return False
-
-def is_admin(username):
-    admins = ["helga"]
-    if username in admins: return True
-    return False
-
-def check_email(email):
-    if len(email.encode('utf-8')) > 254: return False
-    return bool(re.match(r"^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,}$", email))
-
-@app.route("/api/v1/tokens", methods=["POST"])
+@app.route("/api/v1/tokens", methods=["GET"])
+@basic_auth.login_required
 def api_v1_tokens():
-    if request.method == "POST":
-        if request.mimetype == "application/json":
-            if check_user_credentials(request.json["username"], request.json["password"]):
-                return Response(jwt.encode(
-                    {
-                        "exp" : get_unix_time() + 3600, # ticket expires in one hour
-                        "username" : "helga"
-                    },
-                    CITHERON_JWT_KEY,
-                    algorithm="HS256"
-                ), mimetype="text/plain")
-            else:
-                abort(401) # Unauthorized
-        else:
-            abort(415) # Unsupported Media Type
+    if request.method == "GET":
+        return Response(jwt.encode(
+            {
+                "exp" : get_unix_time() + 3600, # ticket expires in one hour
+                "username" : basic_auth.current_user()
+            },
+            CITHERON_JWT_KEY, algorithm="HS256"
+        ), status=200, mimetype="text/plain") # OK
 
 @app.route("/api/v1/users", methods=["POST"])
-@auth.login_required
+@multi_auth.login_required
 def api_v1_users():
     if request.method == "POST":
         if request.mimetype == "application/json":
-            if is_admin(auth.current_user()):
+            if is_admin(multi_auth.current_user()):
 
                 if "name" not in request.json:
                     return Response("Missing required user name.", status=400, mimetype="text/plain") # Bad Request
@@ -115,28 +128,35 @@ def api_v1_users():
 
                 # Check if user name is already used
                 if db.session.query(model.user).filter_by(name=name).count() != 0:
-                    return Response("User name already exists.", status=409, mimetype="text/plain") # Conflict
+                    return Response("User name is already used.", status=409, mimetype="text/plain") # Conflict
 
                 firstname = request.json.get("firstname")
 
                 lastname = request.json.get("lastname")
 
-                if "email" not in request.json:
-                    return Response("Missing required email address.", status=400, mimetype="text/plain") # Bad Request
+                email = request.json.get("email")
 
-                email = request.json["email"].lower()
+                if email is not None:
 
-                # Check if email is already used
-                if db.session.query(model.user).filter_by(email=email).count() != 0:
-                    return Response("Email address already exists.", status=409, mimetype="text/plain") # Conflict
+                    email = email.lower()
 
-                if not check_email(email):
-                    return Response("Malformed email address.", status=400, mimetype="text/plain") # Bad Request
+                    # Check if email address is already used
+                    if db.session.query(model.user).filter_by(email=email).count() != 0:
+                        return Response("Email address is already used.", status=409, mimetype="text/plain") # Conflict
+
+                    if not check_email(email):
+                        return Response("Malformed email address.", status=400, mimetype="text/plain") # Bad Request
+
+                password = request.json.get("password")
+
+                pwhash = None
+                if password is not None:
+                    pwhash = pwhasher.hash(password)
 
                 enabled = request.json.get("enabled", True)
 
                 # Add user entry in database
-                user = model.user(name=name, firstname=firstname, lastname=lastname, email=email, enabled=True)
+                user = model.user(name=name, firstname=firstname, lastname=lastname, email=email, pwhash=pwhash, enabled=True)
                 db.session.add(user)
                 db.session.commit()
 
@@ -151,16 +171,7 @@ def api_v1_users():
 def handle_http_exception(e):
     return Response(f"{e.code} {e.name}", status=e.code, mimetype="text/plain")
 
-@auth.error_handler
-def auth_error(status):
+@basic_auth.error_handler
+@token_auth.error_handler
+def token_auth_error(status):
     return Response(f"Access denied.", status=status, mimetype="text/plain")
-
-@app.route("/")
-def index():
-    logger.info("Hello world!")
-    return "Hello world!"
-
-@app.route("/secret")
-@auth.login_required
-def secret():
-    return "Secret stuff!"
