@@ -1,6 +1,7 @@
 Flask
 Flask-HTTPAuth
-Flask-SQLAlchemy
+SQLAlchemy
 psycopg2-binary
 PyJWT
 argon2-cffi
+PyYAML

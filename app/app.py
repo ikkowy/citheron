@@ -5,58 +5,83 @@ import sys
 import time
 import re
 
+import argon2
+import jwt
+import sqlalchemy
+import yaml
+
 from flask import Flask, request, Response, abort
-from flask_sqlalchemy import SQLAlchemy
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth, MultiAuth
 from werkzeug.exceptions import HTTPException
-import jwt
-import argon2
 
-import model
-from model import db
+import schema
+from version import CITHERON_VERSION
 
-logLevelMap = {
-    "debug" : logging.DEBUG,
-    "info" : logging.INFO,
-    "warning" : logging.WARNING,
-    "error" : logging.ERROR,
-    "critical" : logging.CRITICAL
-}
+################################################################################
+### Load the configuration file
 
-CITHERON_LOG_LEVEL = logLevelMap[os.environ.get("CITHERON_LOG_LEVEL", "info")]
+CITHERON_CONFIG_FILE = os.getenv("CITHERON_CONFIG_FILE")
+
+if CITHERON_CONFIG_FILE is None:
+    raise Exception("missing environment variable 'CITHERON_CONFIG_FILE'")
+
+config = yaml.safe_load(open(CITHERON_CONFIG_FILE, "r"))
+
+CITHERON_DATABASE_HOST = config["database"]["host"]
+CITHERON_DATABASE_PORT = config["database"]["port"]
+CITHERON_DATABASE_DBNAME = config["database"]["dbname"]
+CITHERON_DATABASE_USER = config["database"]["user"]
+CITHERON_DATABASE_PASSWORD = config["database"]["password"]
+
+CITHERON_LOG_FILE = config.get("log", {}).get("file")
+CITHERON_LOG_LEVEL = config.get("log", {}).get("level", "info")
+
+CITHERON_JWT_KEY = config["jwtKey"]
+
+################################################################################
+### Setup the logging system
+
+def log_level(level):
+    return {
+        None : logging.INFO,
+        "debug" : logging.DEBUG,
+        "info" : logging.INFO,
+        "warning" : logging.WARNING,
+        "error" : logging.ERROR,
+        "critical" : logging.CRITICAL
+    }[level]
 
 logger = logging.getLogger("citheron")
-logger.setLevel(CITHERON_LOG_LEVEL)
+logger.setLevel(log_level(CITHERON_LOG_LEVEL))
 
 formatter = logging.Formatter("%(asctime)s %(name)s [%(levelname)s] %(message)s", datefmt="%Y-%m-%dT%H:%M:%S%z")
 
 logConsoleHandler = logging.StreamHandler()
 logConsoleHandler.setFormatter(formatter)
-logConsoleHandler.setLevel(CITHERON_LOG_LEVEL)
+logConsoleHandler.setLevel(log_level(CITHERON_LOG_LEVEL))
 logger.addHandler(logConsoleHandler)
 
 CITHERON_LOG_FILE = os.getenv("CITHERON_LOG_FILE")
 if CITHERON_LOG_FILE is not None:
     logFileHandler = logging.FileHandler(CITHERON_LOG_FILE)
     logFileHandler.setFormatter(formatter)
-    logFileHandler.setLevel(CITHERON_LOG_LEVEL)
+    logFileHandler.setLevel(log_level(CITHERON_LOG_LEVEL))
     logger.addHandler(logFileHandler)
 
-CITHERON_DATABASE_HOST = os.environ["CITHERON_DATABASE_HOST"]
-CITHERON_DATABASE_PORT = os.environ["CITHERON_DATABASE_PORT"]
-CITHERON_DATABASE_DBNAME = os.environ["CITHERON_DATABASE_DBNAME"]
-CITHERON_DATABASE_USER = os.environ["CITHERON_DATABASE_USER"]
-CITHERON_DATABASE_PASSWORD = os.environ["CITHERON_DATABASE_PASSWORD"]
-
-CITHERON_JWT_KEY = os.environ["CITHERON_JWT_KEY"]
+################################################################################
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql+psycopg2://{CITHERON_DATABASE_USER}:{CITHERON_DATABASE_PASSWORD}@{CITHERON_DATABASE_HOST}:{CITHERON_DATABASE_PORT}/{CITHERON_DATABASE_DBNAME}"
+uri = f"postgresql+psycopg2://{CITHERON_DATABASE_USER}:{CITHERON_DATABASE_PASSWORD}@{CITHERON_DATABASE_HOST}:{CITHERON_DATABASE_PORT}/{CITHERON_DATABASE_DBNAME}"
 
-db.init_app(app)
+engine = sqlalchemy.create_engine(uri)
+
+session = sqlalchemy.orm.Session(engine)
 
 pwhasher = argon2.PasswordHasher()
+
+################################################################################
+### Helper functions
 
 def get_unix_time():
     return int(time.time())
@@ -69,7 +94,7 @@ def argon2_verify(hash, password):
     return True
 
 def check_user_credentials(username, password):
-    query = db.session.query(model.user).filter_by(name=username)
+    query = session.query(schema.User).filter_by(name=username)
     if query.count() == 0: return False
     entry = query.first()
     if not entry.enabled: return False
@@ -83,9 +108,22 @@ def check_email(email):
     if len(email.encode('utf-8')) > 254: return False
     return bool(re.match(r"^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,}$", email))
 
+################################################################################
+
+# Check if there is a database version conflict
+if not sqlalchemy.inspect(engine).has_table("registry"):
+    raise Exception("database table 'registry' not found")
+result = session.query(schema.Registry).filter_by(key="citheron.version")
+if result.count() == 0 or result.first().value != CITHERON_VERSION:
+    raise Exception("database version conflict")
+
+################################################################################
+
 basic_auth = HTTPBasicAuth()
 token_auth = HTTPTokenAuth(scheme="Bearer")
 multi_auth = MultiAuth(basic_auth, token_auth)
+
+################################################################################
 
 @basic_auth.verify_password
 def verify_password(username, password):
@@ -127,7 +165,7 @@ def api_v1_users():
                 name = request.json["name"]
 
                 # Check if user name is already used
-                if db.session.query(model.user).filter_by(name=name).count() != 0:
+                if session.query(schema.User).filter_by(name=name).count() != 0:
                     return Response("User name is already used.", status=409, mimetype="text/plain") # Conflict
 
                 firstname = request.json.get("firstname")
@@ -141,7 +179,7 @@ def api_v1_users():
                     email = email.lower()
 
                     # Check if email address is already used
-                    if db.session.query(model.user).filter_by(email=email).count() != 0:
+                    if session.query(schema.User).filter_by(email=email).count() != 0:
                         return Response("Email address is already used.", status=409, mimetype="text/plain") # Conflict
 
                     if not check_email(email):
@@ -156,9 +194,9 @@ def api_v1_users():
                 enabled = request.json.get("enabled", True)
 
                 # Add user entry in database
-                user = model.user(name=name, firstname=firstname, lastname=lastname, email=email, pwhash=pwhash, enabled=True)
-                db.session.add(user)
-                db.session.commit()
+                user = schema.User(name=name, firstname=firstname, lastname=lastname, email=email, pwhash=pwhash, enabled=True)
+                session.add(user)
+                session.commit()
 
                 return Response("A new user has been successfully created.", status=201, mimetype="text/plain") # Created
 
@@ -166,6 +204,8 @@ def api_v1_users():
                 return Response("You need to be admin for this operation.", status=401, mimetype="text/plain") # Unauthorized
         else:
             abort(415) # Unsupported Media Type
+
+################################################################################
 
 @app.errorhandler(HTTPException)
 def handle_http_exception(e):

@@ -1,0 +1,12 @@
+database:
+  host: localhost
+  port: 5432
+  dbname: citheron
+  user: postgres
+  password: secret
+
+log:
+  file: dev/log/citheron.log
+  level: debug
+
+jwtKey: 9bcaeed72f53eb795a3a78a352fc3c6dc0cb747d68705d83a49fb755b54e6efd
