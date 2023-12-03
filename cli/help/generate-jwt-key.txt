@@ -1,0 +1,4 @@
+Usage: citheron generate-jwt-key
+
+This command prints a symmetric key used for creating JSON Web Tokens
+to the console. No options are used.

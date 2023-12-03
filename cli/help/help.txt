@@ -1,0 +1,23 @@
+Usage: citheron <command> [option=value]... [-h | --help | help]
+
+Commands:
+
+  generate-jwt-key      Generate a symmetric key for JSON Web Tokens
+  create-user           Create a new user account
+
+Environment variables for parameterization:
+
+  CITHERON_API_URL      URL of the web API
+  CITHERON_API_TOKEN    Token for the web API
+  CITHERON_CONFIG_FILE  Path to the config file
+
+Options overruling these environment variables:
+
+  api-url=...
+  api-token=...
+  config-file=...
+
+Exit status:
+
+  0  success
+  1  failure
