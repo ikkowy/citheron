@@ -3,12 +3,11 @@ import IconAccountCircle from "./components/icons/IconAccountCircle.vue";
 import IconMenu from "./components/icons/IconMenu.vue";
 import IconMenuOpen from "./components/icons/IconMenuOpen";
 import IconNotifications from "./components/icons/IconNotifications.vue";
+import SideMenuButton from "./components/SideMenuButton.vue";
 </script>
 
 <template>
-
   <header>
-
     <a class="header-button" style="float: left" v-on:click="sideMenuOpen = !sideMenuOpen">
       <IconMenu v-if="!sideMenuOpen" />
       <IconMenuOpen v-else />
@@ -23,12 +22,14 @@ import IconNotifications from "./components/icons/IconNotifications.vue";
     </a>
   </header>
 
-  <aside>
-  </aside>
-
-  <main>
+  <main v-on:click="sideMenuOpen = false">
   </main>
 
+  <aside>
+    <SideMenuButton text="foo" />
+    <SideMenuButton text="bar" />
+    <SideMenuButton text="baz" />
+  </aside>
 </template>
 
 <script>
@@ -44,14 +45,15 @@ window.addEventListener("resize", () => {
   appHeight.value = window.innerHeight;
 });
 
-const sideMenuMaxWidth = 500;
+const sideMenuWidth = 300;
+const sideMenuExpandWidth = 500;
 
 const sideMenuExpanded = computed(() => {
-  return sideMenuOpen.value && appWidth.value <= sideMenuMaxWidth;
+  return sideMenuOpen.value && appWidth.value <= sideMenuExpandWidth;
 });
 
 const sideMenuWidthPx = computed(() => {
-  return sideMenuOpen.value ? `${sideMenuExpanded.value ? appWidth.value : sideMenuMaxWidth}px` : "0px";
+  return sideMenuOpen.value ? `${sideMenuExpanded.value ? appWidth.value : sideMenuWidth}px` : "0px";
 });
 
 const mainDisplay = computed(() => {
@@ -65,18 +67,20 @@ const sideMenuHeightPx = computed(() => {
   return `${appHeight.value - headerHeight}px`;
 });
 
-const sideMenuVisibility = computed(() => {
-  return sideMenuOpen.value ? "visible" : "hidden";
-});
-
 export default {
-  name: 'App'
+  name: "App"
 };
 </script>
 
 <style>
 body {
   margin: 0;
+}
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -105,21 +109,18 @@ header {
 }
 
 aside {
+  position: absolute;
   box-sizing: border-box;
-  visibility: v-bind('sideMenuVisibility');
+  overflow: hidden;
+  top: v-bind('headerHeightPx');
   width: v-bind('sideMenuWidthPx');
   height: v-bind('sideMenuHeightPx');
   background-color: #1a1a1a;
-  border-top: 1px solid #262626;
+  transition: width 500ms;
 }
 
 main {
   display: v-bind('mainDisplay');
-  position: absolute;
-  overflow: scroll;
-  top: 40px;
-  right: 0;
-  width: calc(100vw - v-bind('sideMenuWidthPx'));
-  height: calc(100vh - v-bind('headerHeightPx'));
+  flex: 1;
 }
 </style>
