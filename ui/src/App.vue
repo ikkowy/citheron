@@ -1,39 +1,10 @@
 <script setup>
-import IconAccountCircle from "./components/icons/IconAccountCircle.vue";
-import IconMenu from "./components/icons/IconMenu.vue";
-import IconMenuOpen from "./components/icons/IconMenuOpen";
-import IconNotifications from "./components/icons/IconNotifications.vue";
-import SideMenuButton from "./components/SideMenuButton.vue";
-</script>
-
-<template>
-  <header>
-    <a class="header-button" style="float: left" v-on:click="sideMenuOpen = !sideMenuOpen">
-      <IconMenu v-if="!sideMenuOpen" />
-      <IconMenuOpen v-else />
-    </a>
-
-    <a class="header-button" style="float: right">
-      <IconAccountCircle />
-    </a>
-
-    <a class="header-button" style="float: right">
-      <IconNotifications />
-    </a>
-  </header>
-
-  <main v-on:click="sideMenuOpen = false">
-  </main>
-
-  <aside>
-    <SideMenuButton text="foo" />
-    <SideMenuButton text="bar" />
-    <SideMenuButton text="baz" />
-  </aside>
-</template>
-
-<script>
 import { ref, computed } from 'vue';
+
+import { theme } from "./theme.js";
+
+import SideMenuButton from "./components/SideMenuButton.vue";
+import HeaderButton from "./components/HeaderButton.vue";
 
 const sideMenuOpen = ref(false);
 
@@ -66,11 +37,24 @@ const headerHeightPx = `${headerHeight}px`;
 const sideMenuHeightPx = computed(() => {
   return `${appHeight.value - headerHeight}px`;
 });
-
-export default {
-  name: "App"
-};
 </script>
+
+<template>
+  <header>
+    <HeaderButton v-bind:icon="sideMenuOpen ? 'MenuOpen' : 'Menu'" v-on:click="sideMenuOpen = !sideMenuOpen" />
+    <HeaderButton icon="AccountCircle" float="right" />
+    <HeaderButton icon="Notifications" float="right" />
+  </header>
+
+  <main v-on:click="sideMenuOpen = false">
+  </main>
+
+  <aside>
+    <SideMenuButton text="foo" />
+    <SideMenuButton text="bar" />
+    <SideMenuButton text="baz" />
+  </aside>
+</template>
 
 <style>
 body {
@@ -86,41 +70,22 @@ body {
 header {
   width: 100%;
   height: v-bind(headerHeightPx);
-  background-color: #1a1a1a;
-}
-
-.header-button {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  aspect-ratio: 1 / 1;
-}
-
-.header-button:hover {
-  cursor: pointer;
-  background-color: #262626;
-}
-
-.header-button svg {
-  display: block;
-  margin: auto;
-  width: 70%;
-  fill: #d9d9d9;
+  background-color: v-bind("theme.headerBackgroundColor");
 }
 
 aside {
   position: absolute;
   box-sizing: border-box;
   overflow: hidden;
-  top: v-bind('headerHeightPx');
-  width: v-bind('sideMenuWidthPx');
-  height: v-bind('sideMenuHeightPx');
-  background-color: #1a1a1a;
+  top: v-bind(headerHeightPx);
+  width: v-bind(sideMenuWidthPx);
+  height: v-bind(sideMenuHeightPx);
+  background-color: v-bind("theme.sideMenuBackgroundColor");
   transition: width 500ms;
 }
 
 main {
-  display: v-bind('mainDisplay');
+  display: v-bind(mainDisplay);
   flex: 1;
 }
 </style>

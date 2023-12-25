@@ -1,16 +1,18 @@
-<template>
-
-    <div class="side-menu-button">
-        <span>{{ props.text }}</span>
-    </div>
-
-</template>
-
 <script setup>
 import { defineProps } from "vue";
 
-const props = defineProps(["text"]);
+import { theme } from "../theme.js";
+
+const props = defineProps({
+  text: String
+});
 </script>
+
+<template>
+  <div class="side-menu-button">
+    <span>{{ props.text }}</span>
+  </div>
+</template>
 
 <style scoped>
 .side-menu-button {
@@ -18,13 +20,14 @@ const props = defineProps(["text"]);
     align-items: center;
     width: 100%;
     height: 40px;
-    color: #d9d9d9;
+    background-color: v-bind("theme.sideMenuButtonBackgroundColor");
+    color: v-bind("theme.sideMenuButtonForegroundColor");
     user-select: none;
 }
 
 .side-menu-button:hover {
     cursor: pointer;
-    background-color: #262626;
+    background-color: v-bind("theme.sideMenuButtonHoverBackgroundColor");
 }
 
 .side-menu-button span {
