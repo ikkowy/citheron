@@ -12,8 +12,8 @@ const appWidth = ref(window.innerWidth);
 const appHeight = ref(window.innerHeight);
 
 window.addEventListener("resize", () => {
-  appWidth.value = window.innerWidth;
-  appHeight.value = window.innerHeight;
+  appWidth.value = document.getElementById("app").offsetWidth;
+  appHeight.value = document.getElementById("app").offsetHeight;
 });
 
 const sideMenuWidth = 300;
@@ -86,7 +86,6 @@ aside {
 }
 
 main {
-  /* display: v-bind(mainDisplay); */
   flex: 1;
   background-color: v-bind("theme.mainBackgroundColor.value");
 }
