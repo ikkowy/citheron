@@ -43,7 +43,7 @@ const sideMenuHeightPx = computed(() => {
   <header>
     <HeaderButton v-bind:icon="sideMenuOpen ? 'MenuOpen' : 'Menu'" v-on:click="sideMenuOpen = !sideMenuOpen" />
     <HeaderButton icon="AccountCircle" float="right" />
-    <HeaderButton icon="Notifications" float="right" />
+    <HeaderButton icon="Notifications" float="right" counter="42" />
     <HeaderButton v-bind:icon="darkModeEnabled ? 'DarkMode' : 'LightMode'" v-on:click="darkModeEnabled = !darkModeEnabled" float="right" />
   </header>
 

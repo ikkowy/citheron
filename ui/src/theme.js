@@ -6,6 +6,8 @@ export const theme = {
     headerBackgroundColor: "#1a1a1a",
     headerForegroundColor: "#d9d9d9",
     headerHoverBackgroundColor: "#262626",
+    headerMenuButtonCounterBackgroundColor: "#ff0000",
+    headerMenuButtonCounterForegroundColor: "#ffffff",
     sideMenuBackgroundColor: "#1a1a1a",
     sideMenuButtonBackgroundColor: "#1a1a1a",
     sideMenuButtonForegroundColor: "#d9d9d9",
