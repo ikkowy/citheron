@@ -27,16 +27,16 @@ const sideMenuWidthPx = computed(() => {
   return sideMenuOpen.value ? `${sideMenuExpanded.value ? appWidth.value : sideMenuWidth}px` : "0px";
 });
 
-const mainDisplay = computed(() => {
-  return sideMenuExpanded.value ? "none" : "inline-block";
-});
-
 const headerHeight = 40;
 const headerHeightPx = `${headerHeight}px`;
 
 const sideMenuHeightPx = computed(() => {
   return `${appHeight.value - headerHeight}px`;
 });
+
+if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  darkModeEnabled.value = true;
+}
 </script>
 
 <template>
@@ -86,7 +86,7 @@ aside {
 }
 
 main {
-  display: v-bind(mainDisplay);
+  /* display: v-bind(mainDisplay); */
   flex: 1;
   background-color: v-bind("theme.mainBackgroundColor.value");
 }

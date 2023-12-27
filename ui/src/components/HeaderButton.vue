@@ -15,7 +15,6 @@ const props = defineProps({
     }
   },
   counter: {
-    type: Number,
     required: false
   }
 });
