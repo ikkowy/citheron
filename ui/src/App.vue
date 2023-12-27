@@ -1,7 +1,7 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed } from "vue";
 
-import { theme } from "./theme.js";
+import { theme, darkModeEnabled } from "./theme.js";
 
 import SideMenuButton from "./components/SideMenuButton.vue";
 import HeaderButton from "./components/HeaderButton.vue";
@@ -44,6 +44,7 @@ const sideMenuHeightPx = computed(() => {
     <HeaderButton v-bind:icon="sideMenuOpen ? 'MenuOpen' : 'Menu'" v-on:click="sideMenuOpen = !sideMenuOpen" />
     <HeaderButton icon="AccountCircle" float="right" />
     <HeaderButton icon="Notifications" float="right" />
+    <HeaderButton v-bind:icon="darkModeEnabled ? 'DarkMode' : 'LightMode'" v-on:click="darkModeEnabled = !darkModeEnabled" float="right" />
   </header>
 
   <main v-on:click="sideMenuOpen = false">
@@ -87,5 +88,6 @@ aside {
 main {
   display: v-bind(mainDisplay);
   flex: 1;
+  background-color: v-bind("theme.mainBackgroundColor.value");
 }
 </style>
