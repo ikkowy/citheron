@@ -1,12 +1,11 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
 import { theme, darkModeEnabled } from "./theme.js";
 
-import SideMenuButton from "./components/SideMenuButton.vue";
 import HeaderButton from "./components/HeaderButton.vue";
-
-const sideMenuOpen = ref(false);
+import SideMenu from "./components/SideMenu.vue";
+import SideMenuButton from "./components/SideMenuButton.vue";
 
 const appWidth = ref(window.innerWidth);
 const appHeight = ref(window.innerHeight);
@@ -16,23 +15,9 @@ window.addEventListener("resize", () => {
   appHeight.value = document.getElementById("app").offsetHeight;
 });
 
-const sideMenuWidth = 300;
-const sideMenuExpandWidth = 500;
-
-const sideMenuExpanded = computed(() => {
-  return sideMenuOpen.value && appWidth.value <= sideMenuExpandWidth;
-});
-
-const sideMenuWidthPx = computed(() => {
-  return sideMenuOpen.value ? `${sideMenuExpanded.value ? appWidth.value : sideMenuWidth}px` : "0px";
-});
-
 const headerHeight = 40;
-const headerHeightPx = `${headerHeight}px`;
 
-const sideMenuHeightPx = computed(() => {
-  return `${appHeight.value - headerHeight}px`;
-});
+const sideMenuOpen = ref(false);
 
 if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
   darkModeEnabled.value = true;
@@ -50,18 +35,14 @@ if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").match
   <main v-on:click="sideMenuOpen = false">
   </main>
 
-  <aside>
+  <SideMenu width="300px" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" v-bind:open="sideMenuOpen">
     <SideMenuButton text="foo" />
     <SideMenuButton text="bar" />
     <SideMenuButton text="baz" />
-  </aside>
+  </SideMenu>
 </template>
 
 <style>
-body {
-  margin: 0;
-}
-
 #app {
   height: 100vh;
   display: flex;
@@ -70,19 +51,8 @@ body {
 
 header {
   width: 100%;
-  height: v-bind(headerHeightPx);
+  height: v-bind("`${headerHeight}px`");
   background-color: v-bind("theme.headerBackgroundColor");
-}
-
-aside {
-  position: absolute;
-  box-sizing: border-box;
-  overflow: hidden;
-  top: v-bind(headerHeightPx);
-  width: v-bind(sideMenuWidthPx);
-  height: v-bind(sideMenuHeightPx);
-  background-color: v-bind("theme.sideMenuBackgroundColor");
-  transition: width 500ms;
 }
 
 main {
