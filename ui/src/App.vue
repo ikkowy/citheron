@@ -3,7 +3,7 @@ import { ref } from "vue";
 
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
-const { theme, toggleDarkMode } = appStore;
+const { theme, toggleDarkMode, setDarkMode } = appStore;
 
 import HeaderButton from "./components/HeaderButton.vue";
 import SideMenu from "./components/SideMenu.vue";
@@ -21,8 +21,11 @@ const headerHeight = 40;
 
 const sideMenuOpen = ref(false);
 
-if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-  toggleDarkMode();
+const isDarkModeEnabled = localStorage.getItem("citheron.darkModeEnabled");
+if (isDarkModeEnabled !== null) {
+  setDarkMode(isDarkModeEnabled === "true");
+} else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  setDarkMode(true);
 }
 </script>
 

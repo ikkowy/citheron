@@ -6,6 +6,11 @@ export const useAppStore = defineStore("app", () => {
 
     function toggleDarkMode() {
         darkModeEnabled.value = !darkModeEnabled.value;
+        localStorage.setItem("citheron.darkModeEnabled", darkModeEnabled.value);
+    }
+
+    function setDarkMode(enabled) {
+        darkModeEnabled.value = enabled;
     }
 
     const theme = {
@@ -21,5 +26,5 @@ export const useAppStore = defineStore("app", () => {
         mainBackgroundColor: computed(() => darkModeEnabled.value ? "#000000" : "#ffffff")
     };
 
-    return {darkModeEnabled, theme, toggleDarkMode};
+    return {darkModeEnabled, theme, toggleDarkMode, setDarkMode};
 });

@@ -4,7 +4,7 @@
 - [x] Visual counter in notification icon
 - [x] Automatically detect dark/light mode
 - [x] Improve color theme
-- [ ] Save color mode choice in cookie
+- [x] Save color mode choice in browser
 - [ ] Tooltips
 - [ ] Page routing
 - [ ] Login page
