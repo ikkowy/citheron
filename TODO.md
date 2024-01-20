@@ -5,9 +5,9 @@
 - [x] Automatically detect dark/light mode
 - [x] Improve color theme
 - [x] Save color mode choice in browser
+- [x] Page routing
+- [x] Login page
 - [ ] Tooltips
-- [ ] Page routing
-- [ ] Login page
 - [ ] Side menu sub menus
 - [ ] Use argparse for command line options in Python
 

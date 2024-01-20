@@ -15,7 +15,7 @@ export const useAppStore = defineStore("app", () => {
 
     const theme = {
         headerBackgroundColor: computed(() => darkModeEnabled.value ? "#101010" : "#e0e0e0"),
-        headerForegroundColor: computed(() => darkModeEnabled.value ? "#ffffff" : "#101010"),
+        headerForegroundColor: computed(() => darkModeEnabled.value ? "#e0e0e0" : "#101010"),
         headerHoverBackgroundColor: computed(() => darkModeEnabled.value ? "#202020" : "#d0d0d0"),
         headerMenuButtonCounterBackgroundColor: "#ff0000",
         headerMenuButtonCounterForegroundColor: "#ffffff",
