@@ -1,8 +1,6 @@
 <script setup>
 import { defineProps } from "vue";
 
-// import { theme } from "../theme.js";
-
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme } = appStore;
