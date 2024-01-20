@@ -7,10 +7,9 @@
 <template>
   <div id="login-page">
     <AppLogo id="app-logo" />
-
     <form id="login-form">
-      <TextField placeholder="Username" />
-      <TextField placeholder="Password" password />
+      <TextField placeholder="Username" icon="Person" />
+      <TextField placeholder="Password" icon="Key" password invalid />
       <ClickButton>Login</ClickButton>
     </form>
   </div>
