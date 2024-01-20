@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from "vue";
 
-import { theme, darkModeEnabled } from "./theme.js";
+import { useAppStore } from "@/storages/useAppStore";
+const appStore = useAppStore();
+const { theme, toggleDarkMode } = appStore;
 
 import HeaderButton from "./components/HeaderButton.vue";
 import SideMenu from "./components/SideMenu.vue";
@@ -20,7 +22,7 @@ const headerHeight = 40;
 const sideMenuOpen = ref(false);
 
 if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-  darkModeEnabled.value = true;
+  toggleDarkMode();
 }
 </script>
 
@@ -29,7 +31,7 @@ if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").match
     <HeaderButton v-bind:icon="sideMenuOpen ? 'MenuOpen' : 'Menu'" v-on:click="sideMenuOpen = !sideMenuOpen" />
     <HeaderButton icon="AccountCircle" float="right" />
     <HeaderButton icon="Notifications" float="right" counter="42" />
-    <HeaderButton v-bind:icon="darkModeEnabled ? 'DarkMode' : 'LightMode'" v-on:click="darkModeEnabled = !darkModeEnabled" float="right" />
+    <HeaderButton v-bind:icon="appStore.darkModeEnabled ? 'DarkMode' : 'LightMode'" v-on:click="toggleDarkMode()" float="right" />
   </header>
 
   <main v-on:click="sideMenuOpen = false">
@@ -57,6 +59,6 @@ header {
 
 main {
   flex: 1;
-  background-color: v-bind("theme.mainBackgroundColor.value");
+  background-color: v-bind("theme.mainBackgroundColor");
 }
 </style>

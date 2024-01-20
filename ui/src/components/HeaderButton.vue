@@ -3,7 +3,9 @@ import { computed, defineProps } from "vue";
 
 import IconElement from "./IconElement.vue";
 
-import { theme } from "../theme.js";
+import { useAppStore } from "@/storages/useAppStore";
+const appStore = useAppStore();
+const { theme } = appStore;
 
 const props = defineProps({
   icon: String,

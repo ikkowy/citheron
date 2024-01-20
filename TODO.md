@@ -8,6 +8,7 @@
 - Page routing
 - Login page
 - Side menu sub menus
+- Use argparse for command line options in Python
 
 # Future steps
 
