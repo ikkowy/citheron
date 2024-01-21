@@ -7,7 +7,7 @@ const { theme, toggleDarkMode, setDarkMode } = appStore;
 
 import HeaderButton from "./HeaderButton.vue";
 import SideMenu from "./SideMenu.vue";
-import SideMenuButton from "./SideMenuButton.vue";
+import SideMenuEntry from "./SideMenuEntry.vue";
 
 const appWidth = ref(window.innerWidth);
 const appHeight = ref(window.innerHeight);
@@ -42,9 +42,12 @@ if (isDarkModeEnabled !== null) {
     </main>
 
     <SideMenu width="300px" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" v-bind:open="sideMenuOpen">
-      <SideMenuButton text="foo" />
-      <SideMenuButton text="bar" />
-      <SideMenuButton text="baz" />
+      <SideMenuEntry label="Notes" icon="Book" />
+      <SideMenuEntry label="Tasks" icon="Task" />
+      <SideMenuEntry label="Vault" icon="Vault" />
+      <SideMenuEntry label="Settings" icon="Settings" />
+      <SideMenuEntry label="Help" icon="Help" />
+      <SideMenuEntry label="About" icon="Info" />
     </SideMenu>
   </div>
 </template>

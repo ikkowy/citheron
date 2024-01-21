@@ -2,7 +2,10 @@
 import { defineProps } from "vue";
 
 import IconAccountCircle from "./icons/IconAccountCircle.vue";
+import IconBook from "./icons/IconBook.vue";
 import IconDarkMode from "./icons/IconDarkMode.vue";
+import IconHelp from "./icons/IconHelp.vue";
+import IconInfo from "./icons/IconInfo.vue";
 import IconKey from "./icons/IconKey.vue";
 import IconLightMode from "./icons/IconLightMode.vue";
 import IconMenu from "./icons/IconMenu.vue";
@@ -11,6 +14,9 @@ import IconNotifications from "./icons/IconNotifications.vue";
 import IconPerson from "./icons/IconPerson.vue";
 import IconPin from "./icons/IconPin.vue";
 import IconPinSlash from "./icons/IconPinSlash.vue";
+import IconSettings from "./icons/IconSettings.vue";
+import IconTask from "./icons/IconTask.vue";
+import IconVault from "./icons/IconVault.vue";
 import IconVisibility from "./icons/IconVisibility.vue";
 import IconVisibilityOff from "./icons/IconVisibilityOff.vue";
 
@@ -18,18 +24,24 @@ const props = defineProps(["name"]);
 </script>
 
 <template>
-  <IconAccountCircle class="icon" v-if="props.name === 'AccountCircle'" />
-  <IconDarkMode class="icon" v-else-if="props.name === 'DarkMode'" />
-  <IconKey class="icon" v-else-if="props.name === 'Key'" />
-  <IconLightMode class="icon" v-else-if="props.name === 'LightMode'" />
-  <IconMenu class="icon" v-else-if="props.name === 'Menu'" />
-  <IconMenuOpen class="icon" v-else-if="props.name === 'MenuOpen'" />
-  <IconNotifications class="icon" v-else-if="props.name === 'Notifications'" />
-  <IconPerson class="icon" v-else-if="props.name === 'Person'" />
-  <IconPin class="icon" v-else-if="props.name === 'Pin'" />
-  <IconPinSlash class="icon" v-else-if="props.name === 'PinSlash'" />
-  <IconVisibility class="icon" v-else-if="props.name === 'Visibility'" />
-  <IconVisibilityOff class="icon" v-else-if="props.name === 'VisibilityOff'" />
+  <IconAccountCircle v-if="props.name === 'AccountCircle'" />
+  <IconBook v-else-if="props.name === 'Book'" />
+  <IconDarkMode v-else-if="props.name === 'DarkMode'" />
+  <IconHelp v-else-if="props.name === 'Help'" />
+  <IconInfo v-else-if="props.name === 'Info'" />
+  <IconKey v-else-if="props.name === 'Key'" />
+  <IconLightMode v-else-if="props.name === 'LightMode'" />
+  <IconMenu v-else-if="props.name === 'Menu'" />
+  <IconMenuOpen v-else-if="props.name === 'MenuOpen'" />
+  <IconNotifications v-else-if="props.name === 'Notifications'" />
+  <IconPerson v-else-if="props.name === 'Person'" />
+  <IconPin v-else-if="props.name === 'Pin'" />
+  <IconPinSlash v-else-if="props.name === 'PinSlash'" />
+  <IconSettings v-else-if="props.name === 'Settings'" />
+  <IconTask v-else-if="props.name === 'Task'" />
+  <IconVault v-else-if="props.name === 'Vault'" />
+  <IconVisibility v-else-if="props.name === 'Visibility'" />
+  <IconVisibilityOff v-else-if="props.name === 'VisibilityOff'" />
 </template>
 
 <style scoped>
