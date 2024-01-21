@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps } from "vue";
+import { computed, defineProps, ref } from "vue";
 
 import IconElement from "./IconElement.vue";
 
@@ -18,6 +18,10 @@ const props = defineProps({
   },
   counter: {
     required: false
+  },
+  active: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -33,10 +37,16 @@ const counterText = computed(() => {
     return "∞";
   return `${value}`;
 });
+
+const hovered = ref(false);
+
+const backgroundColor = computed(() => {
+  return props.active || hovered.value ? theme.headerHoverBackgroundColor : theme.headerBackgroundColor;
+});
 </script>
 
 <template>
-  <a class="header-button" v-bind:style="floatStyle">
+  <a class="header-button" v-bind:style="floatStyle" v-on:mouseover="hovered = true" v-on:mouseleave="hovered = false">
     <IconElement v-bind:name="props.icon" />
     <span v-if="counterText">{{ counterText }}</span>
   </a>
@@ -49,11 +59,8 @@ const counterText = computed(() => {
   align-items: center;
   height: 100%;
   aspect-ratio: 1 / 1;
-}
-
-.header-button:hover {
+  background-color: v-bind(backgroundColor);
   cursor: pointer;
-  background-color: v-bind("theme.headerHoverBackgroundColor");
 }
 
 .header-button svg {

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed, watch } from "vue";
 
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
@@ -20,6 +20,33 @@ window.addEventListener("resize", () => {
 const headerHeight = 40;
 
 const sideMenuOpen = ref(false);
+const userMenuOpen = ref(false);
+
+watch(sideMenuOpen, () => {
+  if (sideMenuOpen.value) {
+    userMenuOpen.value = false;
+  }
+});
+
+watch(userMenuOpen, () => {
+  if (userMenuOpen.value) {
+    sideMenuOpen.value = false;
+  }
+});
+
+const menuExpandLimit = 600;
+
+const sideMenuWidth = computed(() => {
+  return appWidth.value < menuExpandLimit ? "100%" : "250px";
+});
+
+const userMenuWidth = computed(() => {
+  return appWidth.value < menuExpandLimit ? "100%" : "initial";
+});
+
+const userMenuHeight = computed(() => {
+  return appWidth.value < menuExpandLimit ? "100%" : "initial";
+});
 
 const isDarkModeEnabled = localStorage.getItem("citheron.darkModeEnabled");
 if (isDarkModeEnabled !== null) {
@@ -32,22 +59,26 @@ if (isDarkModeEnabled !== null) {
 <template>
   <div id="dashboard-page">
     <header>
-      <HeaderButton v-bind:icon="sideMenuOpen ? 'MenuOpen' : 'Menu'" v-on:click="sideMenuOpen = !sideMenuOpen" />
-      <HeaderButton icon="AccountCircle" float="right" />
+      <HeaderButton v-bind:icon="sideMenuOpen ? 'MenuOpen' : 'Menu'" v-on:click="sideMenuOpen = !sideMenuOpen" v-bind:active="sideMenuOpen" />
+      <HeaderButton icon="AccountCircle" float="right" v-on:click="userMenuOpen = !userMenuOpen" v-bind:active="userMenuOpen" />
       <HeaderButton icon="Notifications" float="right" counter="42" />
       <HeaderButton v-bind:icon="appStore.darkModeEnabled ? 'DarkMode' : 'LightMode'" v-on:click="toggleDarkMode()" float="right" />
     </header>
 
-    <main v-on:click="sideMenuOpen = false">
+    <main v-on:click="sideMenuOpen = false; userMenuOpen = false">
     </main>
 
-    <SideMenu width="300px" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" v-bind:open="sideMenuOpen">
+    <SideMenu v-bind:width="sideMenuWidth" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" entrydash="left" v-bind:open="sideMenuOpen">
       <SideMenuEntry label="Notes" icon="Book" />
       <SideMenuEntry label="Tasks" icon="Task" />
       <SideMenuEntry label="Vault" icon="Vault" />
       <SideMenuEntry label="Settings" icon="Settings" />
+    </SideMenu>
+
+    <SideMenu v-bind:width="userMenuWidth" v-bind:height="userMenuHeight" position="right" entryDash="false" v-bind:top="`${headerHeight}px`" v-bind:open="userMenuOpen">
       <SideMenuEntry label="Help" icon="Help" />
       <SideMenuEntry label="About" icon="Info" />
+      <SideMenuEntry label="Logout" icon="Logout" />
     </SideMenu>
   </div>
 </template>

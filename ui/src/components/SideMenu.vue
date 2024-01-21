@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from "vue";
+import { computed, defineProps, provide } from "vue";
 
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
@@ -9,32 +9,48 @@ const props = defineProps({
   width: String,
   height: String,
   top: String,
+  position: {
+    type: String,
+    default: "left",
+    validator(value) {
+      return ["left", "right"].includes(value);
+    }
+  },
+  entrydash: {
+    type: String,
+    default: "none",
+    validator(value) {
+      return ["none", "left", "right"].includes(value);
+    }
+  },
   open: {
     type: Boolean,
-    default: false
-  },
-  expanded: {
-    type: Boolean,
-    default: false
+    default: true
   }
+});
+
+provide("entrydash", props.entrydash);
+
+const right = computed(() => {
+  return props.position === "right" ? "0px" : "initial";
 });
 </script>
 
 <template>
-  <aside id="side-menu">
+  <aside class="side-menu">
     <slot />
   </aside>
 </template>
 
 <style scoped>
-#side-menu {
-  position: absolute;
+.side-menu {
   box-sizing: border-box;
+  position: absolute;
   overflow: hidden;
   top: v-bind("props.top");
+  right: v-bind(right);
   width: v-bind("props.open ? props.width : '0px'");
   height: v-bind("props.height");
   background-color: v-bind("theme.sideMenuBackgroundColor");
-  transition: width 500ms;
 }
 </style>

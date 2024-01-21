@@ -8,6 +8,7 @@ import IconHelp from "./icons/IconHelp.vue";
 import IconInfo from "./icons/IconInfo.vue";
 import IconKey from "./icons/IconKey.vue";
 import IconLightMode from "./icons/IconLightMode.vue";
+import IconLogout from "./icons/IconLogout.vue";
 import IconMenu from "./icons/IconMenu.vue";
 import IconMenuOpen from "./icons/IconMenuOpen";
 import IconNotifications from "./icons/IconNotifications.vue";
@@ -31,6 +32,7 @@ const props = defineProps(["name"]);
   <IconInfo v-else-if="props.name === 'Info'" />
   <IconKey v-else-if="props.name === 'Key'" />
   <IconLightMode v-else-if="props.name === 'LightMode'" />
+  <IconLogout v-else-if="props.name === 'Logout'" />
   <IconMenu v-else-if="props.name === 'Menu'" />
   <IconMenuOpen v-else-if="props.name === 'MenuOpen'" />
   <IconNotifications v-else-if="props.name === 'Notifications'" />
