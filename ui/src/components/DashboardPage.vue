@@ -54,6 +54,11 @@ if (isDarkModeEnabled !== null) {
 } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
   setDarkMode(true);
 }
+
+function closeMenus() {
+  sideMenuOpen.value = false;
+  userMenuOpen.value = false;
+}
 </script>
 
 <template>
@@ -65,13 +70,14 @@ if (isDarkModeEnabled !== null) {
       <HeaderButton v-bind:icon="appStore.darkModeEnabled ? 'DarkMode' : 'LightMode'" v-on:click="toggleDarkMode()" float="right" />
     </header>
 
-    <main v-on:click="sideMenuOpen = false; userMenuOpen = false">
+    <main v-on:click="closeMenus()">
     </main>
 
     <SideMenu v-bind:width="sideMenuWidth" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" entrydash="left" v-bind:open="sideMenuOpen">
       <SideMenuEntry label="Notes" icon="Book" />
       <SideMenuEntry label="Tasks" icon="Task" />
-      <SideMenuEntry label="Vault" icon="Vault" />
+      <SideMenuEntry label="Vaults" icon="Vault" />
+      <SideMenuEntry label="Administration" icon="Server" />
       <SideMenuEntry label="Settings" icon="Settings" />
     </SideMenu>
 

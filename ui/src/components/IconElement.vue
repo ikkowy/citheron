@@ -15,6 +15,7 @@ import IconNotifications from "./icons/IconNotifications.vue";
 import IconPerson from "./icons/IconPerson.vue";
 import IconPin from "./icons/IconPin.vue";
 import IconPinSlash from "./icons/IconPinSlash.vue";
+import IconServer from "./icons/IconServer.vue";
 import IconSettings from "./icons/IconSettings.vue";
 import IconTask from "./icons/IconTask.vue";
 import IconVault from "./icons/IconVault.vue";
@@ -39,6 +40,7 @@ const props = defineProps(["name"]);
   <IconPerson v-else-if="props.name === 'Person'" />
   <IconPin v-else-if="props.name === 'Pin'" />
   <IconPinSlash v-else-if="props.name === 'PinSlash'" />
+  <IconServer v-else-if="props.name === 'Server'" />
   <IconSettings v-else-if="props.name === 'Settings'" />
   <IconTask v-else-if="props.name === 'Task'" />
   <IconVault v-else-if="props.name === 'Vault'" />
