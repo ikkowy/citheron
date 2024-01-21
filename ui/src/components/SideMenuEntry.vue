@@ -17,7 +17,7 @@ const entrydash = inject("entrydash");
 
 <template>
   <div class="side-menu-entry" v-bind:class="`side-menu-entrydash-${entrydash}`">
-    <IconElement v-if="props.icon" v-bind:name="props.icon" v-bind:fill="theme.SideMenuEntryForegroundColor" />
+    <IconElement v-if="props.icon" v-bind:name="props.icon" v-bind:fill="theme.sideMenuForegroundColor" />
     <span>{{ props.label }}</span>
   </div>
 </template>
@@ -33,14 +33,14 @@ const entrydash = inject("entrydash");
   padding-right: 20px;
   border-left: none;
   border-right: none;
-  background-color: v-bind("theme.SideMenuEntryBackgroundColor");
-  color: v-bind("theme.SideMenuEntryForegroundColor");
+  background-color: v-bind("theme.sideMenuBackgroundColor");
+  color: v-bind("theme.sideMenuForegroundColor");
   user-select: none;
 }
 
 .side-menu-entry:hover {
   cursor: pointer;
-  background-color: v-bind("theme.SideMenuEntryHoverBackgroundColor");
+  background-color: v-bind("theme.sideMenuHoverBackgroundColor");
 }
 
 .side-menu-entry span {
@@ -50,11 +50,11 @@ const entrydash = inject("entrydash");
 
 .side-menu-entrydash-left:hover {
   padding-left: 15px;
-  border-left: 5px solid v-bind("theme.SideMenuEntryForegroundColor");
+  border-left: 5px solid v-bind("theme.sideMenuForegroundColor");
 }
 
 .side-menu-entrydash-right:hover {
   padding-right: 15px;
-  border-right: 5px solid v-bind("theme.SideMenuEntryForegroundColor");
+  border-right: 5px solid v-bind("theme.sideMenuForegroundColor");
 }
 </style>

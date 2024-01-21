@@ -18,10 +18,6 @@ const props = defineProps({
   },
   counter: {
     required: false
-  },
-  active: {
-    type: Boolean,
-    default: false
   }
 });
 
@@ -39,10 +35,6 @@ const counterText = computed(() => {
 });
 
 const hovered = ref(false);
-
-const backgroundColor = computed(() => {
-  return props.active || hovered.value ? theme.headerHoverBackgroundColor : theme.headerBackgroundColor;
-});
 </script>
 
 <template>
@@ -61,6 +53,10 @@ const backgroundColor = computed(() => {
   aspect-ratio: 1 / 1;
   background-color: v-bind(backgroundColor);
   cursor: pointer;
+}
+
+.header-button:hover {
+  background-color: v-bind("theme.headerHoverBackgroundColor");
 }
 
 .header-button svg {

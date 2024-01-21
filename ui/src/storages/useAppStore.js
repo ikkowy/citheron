@@ -20,9 +20,8 @@ export const useAppStore = defineStore("app", () => {
         headerMenuButtonCounterBackgroundColor: "hsla(5, 80%, 50%, 1)",
         headerMenuButtonCounterForegroundColor: "#e0e0e0",
         sideMenuBackgroundColor: computed(() => darkModeEnabled.value ? "#101010" : "#e0e0e0"),
-        SideMenuEntryBackgroundColor: computed(() => darkModeEnabled.value ? "#101010" : "#e0e0e0"),
-        SideMenuEntryForegroundColor: computed(() => darkModeEnabled.value ? "#ffffff" : "#101010"),
-        SideMenuEntryHoverBackgroundColor: computed(() => darkModeEnabled.value ? "#202020" : "#d0d0d0"),
+        sideMenuForegroundColor: computed(() => darkModeEnabled.value ? "#ffffff" : "#101010"),
+        sideMenuHoverBackgroundColor: computed(() => darkModeEnabled.value ? "#202020" : "#d0d0d0"),
         mainBackgroundColor: computed(() => darkModeEnabled.value ? "#000000" : "#ffffff")
     };
 

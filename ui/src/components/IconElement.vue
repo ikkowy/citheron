@@ -2,6 +2,7 @@
 import { defineProps } from "vue";
 
 import IconAccountCircle from "./icons/IconAccountCircle.vue";
+import IconBack from "./icons/IconBack.vue";
 import IconBook from "./icons/IconBook.vue";
 import IconDarkMode from "./icons/IconDarkMode.vue";
 import IconHelp from "./icons/IconHelp.vue";
@@ -27,6 +28,7 @@ const props = defineProps(["name"]);
 
 <template>
   <IconAccountCircle v-if="props.name === 'AccountCircle'" />
+  <IconBack v-else-if="props.name === 'Back'" />
   <IconBook v-else-if="props.name === 'Book'" />
   <IconDarkMode v-else-if="props.name === 'DarkMode'" />
   <IconHelp v-else-if="props.name === 'Help'" />
