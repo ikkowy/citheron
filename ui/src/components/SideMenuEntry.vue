@@ -12,11 +12,11 @@ const props = defineProps({
   icon: String
 });
 
-const entrydash = inject("entrydash");
+const entryDash = inject("entryDash");
 </script>
 
 <template>
-  <div class="side-menu-entry" v-bind:class="`side-menu-entrydash-${entrydash}`">
+  <div class="side-menu-entry" v-bind:class="`side-menu-entry-dash-${entryDash}`">
     <IconElement v-if="props.icon" v-bind:name="props.icon" v-bind:fill="theme.sideMenuForegroundColor" />
     <span>{{ props.label }}</span>
   </div>
@@ -48,12 +48,12 @@ const entrydash = inject("entrydash");
   font-weight: bold;
 }
 
-.side-menu-entrydash-left:hover {
+.side-menu-entry-dash-left:hover {
   padding-left: 15px;
   border-left: 5px solid v-bind("theme.sideMenuForegroundColor");
 }
 
-.side-menu-entrydash-right:hover {
+.side-menu-entry-dash-right:hover {
   padding-right: 15px;
   border-right: 5px solid v-bind("theme.sideMenuForegroundColor");
 }

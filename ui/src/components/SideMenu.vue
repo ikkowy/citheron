@@ -16,7 +16,7 @@ const props = defineProps({
       return ["left", "right"].includes(value);
     }
   },
-  entrydash: {
+  entryDash: {
     type: String,
     default: "none",
     validator(value) {
@@ -29,7 +29,7 @@ const props = defineProps({
   }
 });
 
-provide("entrydash", props.entrydash);
+provide("entryDash", props.entryDash);
 
 const right = computed(() => {
   return props.position === "right" ? "0px" : "initial";

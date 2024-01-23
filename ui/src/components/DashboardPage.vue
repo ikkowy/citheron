@@ -24,6 +24,8 @@ const headerHeight = 40;
 const sideMenuOpen = ref(false);
 const userMenuOpen = ref(false);
 
+const sideMenuPinned = ref(false);
+
 watch(sideMenuOpen, () => {
   if (sideMenuOpen.value) {
     userMenuOpen.value = false;
@@ -100,17 +102,21 @@ onMounted(() => {
     <main v-on:click="closeMenus()">
     </main>
 
-    <SideMenu id="side-menu" v-bind:width="sideMenuWidth" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" entrydash="left" v-bind:open="sideMenuOpen">
-      <SideMenuBanner v-bind:caption="sideMenuBannerCaption" buttonLeftIcon="Back" :buttonLeftAction="previousSideMenuSection" buttonRightIcon="Pin" />
-      <SideMenuSection name="apps" caption="Applications">
+    <SideMenu id="side-menu" v-bind:width="sideMenuWidth" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" entry-dash="left" v-bind:open="sideMenuOpen">
+      <SideMenuBanner v-bind:caption="sideMenuBannerCaption" v-bind:button-left-active="sideMenuPreviousSection" button-left-icon="Back" :button-left-action="previousSideMenuSection" :button-right-action="() => {sideMenuPinned = ! sideMenuPinned}" v-bind:button-right-icon="sideMenuPinned ? 'PinSlash' : 'Pin'" />
+      <SideMenuSection name="apps">
         <SideMenuEntry label="Notes" icon="Book" />
         <SideMenuEntry label="Tasks" icon="Task" />
         <SideMenuEntry label="Vaults" icon="Vault" />
         <SideMenuEntry label="Administration" icon="Server" v-on:click="changeSideMenuSection('admin')" />
-        <SideMenuEntry label="Settings" icon="Settings" />
+        <SideMenuEntry label="Settings" icon="Settings" v-on:click="changeSideMenuSection('settings')" />
       </SideMenuSection>
       <SideMenuSection name="admin" caption="Administration" back="apps">
         <SideMenuEntry label="Users" icon="Person" />
+        <SideMenuEntry label="Groups" icon="Group" />
+        <SideMenuEntry label="Authentication" icon="Key" />
+      </SideMenuSection>
+      <SideMenuSection name="settings" caption="Settings" back="apps">
       </SideMenuSection>
     </SideMenu>
 

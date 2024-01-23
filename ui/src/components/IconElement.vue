@@ -5,6 +5,7 @@ import IconAccountCircle from "./icons/IconAccountCircle.vue";
 import IconBack from "./icons/IconBack.vue";
 import IconBook from "./icons/IconBook.vue";
 import IconDarkMode from "./icons/IconDarkMode.vue";
+import IconGroup from "./icons/IconGroup.vue";
 import IconHelp from "./icons/IconHelp.vue";
 import IconInfo from "./icons/IconInfo.vue";
 import IconKey from "./icons/IconKey.vue";
@@ -31,6 +32,7 @@ const props = defineProps(["name"]);
   <IconBack v-else-if="props.name === 'Back'" />
   <IconBook v-else-if="props.name === 'Book'" />
   <IconDarkMode v-else-if="props.name === 'DarkMode'" />
+  <IconGroup v-else-if="props.name === 'Group'" />
   <IconHelp v-else-if="props.name === 'Help'" />
   <IconInfo v-else-if="props.name === 'Info'" />
   <IconKey v-else-if="props.name === 'Key'" />

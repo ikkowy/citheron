@@ -9,16 +9,37 @@ import IconElement from "./IconElement.vue";
 
 const props = defineProps({
   caption: String,
+  buttonLeftActive: {
+    type: Boolean,
+    default: true
+  },
+  buttonRightActive: {
+    type: Boolean,
+    default: true
+  },
   buttonLeftIcon: String,
   buttonRightIcon: String,
-  buttonLeftAction: Function
+  buttonLeftAction: {
+    type: Function,
+    default: () => { }
+  },
+  buttonRightAction: {
+    type: Function,
+    default: () => { }
+  }
 });
 </script>
 
 <template>
   <div class="side-menu-banner">
-    <a v-if="props.buttonLeftIcon" v-on:click="props.buttonLeftAction()" class="side-menu-banner-button side-menu-banner-button-back"> <IconElement v-bind:name="props.buttonLeftIcon" v-bind:fill="theme.sideMenuForegroundColor" /></a>
-    <a v-if="props.buttonRightIcon" class="side-menu-banner-button side-menu-banner-button-pin"> <IconElement v-bind:name="props.buttonRightIcon" v-bind:fill="theme.sideMenuForegroundColor" /></a>
+    <a v-if="props.buttonLeftIcon" v-on:click="props.buttonLeftAction()"
+      v-bind:class="{ 'side-menu-banner-button': true, 'left': true, 'active': props.buttonLeftActive }">
+      <IconElement v-bind:name="props.buttonLeftIcon" v-bind:fill="theme.sideMenuForegroundColor" />
+    </a>
+    <a v-if="props.buttonRightIcon" v-on:click="props.buttonRightAction()"
+      v-bind:class="{ 'side-menu-banner-button': true, 'right': true, 'active': props.buttonRightActive }">
+      <IconElement v-bind:name="props.buttonRightIcon" v-bind:fill="theme.sideMenuForegroundColor" />
+    </a>
     <span v-if="props.caption">{{ props.caption }}</span>
   </div>
 </template>
@@ -51,15 +72,19 @@ const props = defineProps({
   cursor: pointer;
 }
 
-.side-menu-banner-button:hover {
+.side-menu-banner-button:not(.active) {
+  opacity: 0.5;
+}
+
+.side-menu-banner-button.active:hover {
   background-color: v-bind("theme.sideMenuHoverBackgroundColor");
 }
 
-.side-menu-banner-button-back {
+.side-menu-banner-button.left {
   left: 0;
 }
 
-.side-menu-banner-button-pin {
+.side-menu-banner-button.right {
   right: 0;
 }
 </style>
