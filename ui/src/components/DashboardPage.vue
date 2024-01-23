@@ -40,16 +40,20 @@ watch(userMenuOpen, () => {
 
 const menuExpandLimit = 600;
 
+const menuExpanded = computed(() => {
+  return appWidth.value < menuExpandLimit;
+});
+
 const sideMenuWidth = computed(() => {
-  return appWidth.value < menuExpandLimit ? "100%" : "250px";
+  return menuExpanded.value ? "100%" : "250px";
 });
 
 const userMenuWidth = computed(() => {
-  return appWidth.value < menuExpandLimit ? "100%" : "initial";
+  return menuExpanded.value ? "100%" : "initial";
 });
 
 const userMenuHeight = computed(() => {
-  return appWidth.value < menuExpandLimit ? "100%" : "initial";
+  return menuExpanded.value ? "100%" : "initial";
 });
 
 const isDarkModeEnabled = localStorage.getItem("citheron.darkModeEnabled");
@@ -100,6 +104,7 @@ onMounted(() => {
     </header>
 
     <main v-on:click="closeMenus()">
+      <span style="color: white">Test</span>
     </main>
 
     <SideMenu id="side-menu" v-bind:width="sideMenuWidth" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" entry-dash="left" v-bind:open="sideMenuOpen">
@@ -131,8 +136,6 @@ onMounted(() => {
 <style scoped>
 #dashboard-page {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 header {
@@ -142,7 +145,10 @@ header {
 }
 
 main {
-  flex: 1;
+  position: absolute;
+  right: 0;
+  width: calc(100% - v-bind("sideMenuPinned ? `${sideMenuWidth}` : '0px'"));
+  height: 100%;
   background-color: v-bind("theme.mainBackgroundColor");
 }
 </style>
