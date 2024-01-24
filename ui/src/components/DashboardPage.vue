@@ -40,20 +40,20 @@ watch(userMenuOpen, () => {
 
 const menuExpandLimit = 600;
 
-const menuExpanded = computed(() => {
+const menusExpanded = computed(() => {
   return appWidth.value < menuExpandLimit;
 });
 
 const sideMenuWidth = computed(() => {
-  return menuExpanded.value ? "100%" : "250px";
+  return menusExpanded.value ? "100%" : "250px";
 });
 
 const userMenuWidth = computed(() => {
-  return menuExpanded.value ? "100%" : "initial";
+  return menusExpanded.value ? "100%" : "initial";
 });
 
 const userMenuHeight = computed(() => {
-  return menuExpanded.value ? "100%" : "initial";
+  return menusExpanded.value ? "100%" : "initial";
 });
 
 const isDarkModeEnabled = localStorage.getItem("citheron.darkModeEnabled");
@@ -103,12 +103,19 @@ onMounted(() => {
       <HeaderButton v-bind:icon="appStore.darkModeEnabled ? 'DarkMode' : 'LightMode'" v-on:click="toggleDarkMode()" float="right" />
     </header>
 
-    <main v-on:click="closeMenus()">
+    <main v-if="!(menusExpanded && sideMenuOpen)" v-on:click="closeMenus()">
       <span style="color: white">Test</span>
     </main>
 
     <SideMenu id="side-menu" v-bind:width="sideMenuWidth" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" entry-dash="left" v-bind:open="sideMenuOpen">
-      <SideMenuBanner v-bind:caption="sideMenuBannerCaption" v-bind:button-left-active="sideMenuPreviousSection" button-left-icon="Back" :button-left-action="previousSideMenuSection" :button-right-action="() => {sideMenuPinned = ! sideMenuPinned}" v-bind:button-right-icon="sideMenuPinned ? 'PinSlash' : 'Pin'" />
+      <SideMenuBanner
+        v-bind:caption="sideMenuBannerCaption"
+        v-bind:button-left-active="sideMenuPreviousSection"
+        v-bind:button-right-active="!menusExpanded"
+        button-left-icon="Back"
+        v-bind:button-right-icon="sideMenuPinned ? 'PinSlash' : 'Pin'"
+        :button-left-action="previousSideMenuSection"
+        :button-right-action="() => {sideMenuPinned = ! sideMenuPinned}" />
       <SideMenuSection name="apps">
         <SideMenuEntry label="Notes" icon="Book" />
         <SideMenuEntry label="Tasks" icon="Task" />
@@ -147,7 +154,7 @@ header {
 main {
   position: absolute;
   right: 0;
-  width: calc(100% - v-bind("sideMenuPinned ? `${sideMenuWidth}` : '0px'"));
+  width: calc(100% - v-bind("sideMenuOpen && sideMenuPinned ? `${sideMenuWidth}` : '0px'"));
   height: 100%;
   background-color: v-bind("theme.mainBackgroundColor");
 }

@@ -9,6 +9,14 @@ import IconElement from "./IconElement.vue";
 
 const props = defineProps({
   caption: String,
+  buttonLeftEnabled: {
+    type: Boolean,
+    default: true
+  },
+  buttonRightEnabled: {
+    type: Boolean,
+    default: true
+  },
   buttonLeftActive: {
     type: Boolean,
     default: true
@@ -31,12 +39,12 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="side-menu-banner">
-    <a v-if="props.buttonLeftIcon" v-on:click="props.buttonLeftAction()"
+  <div class="side-menu-banner" v-if="props.caption || props.buttonLeftEnabled || props.buttonRightEnabled">
+    <a v-if="props.buttonLeftEnabled && props.buttonLeftIcon" v-on:click="props.buttonLeftAction()"
       v-bind:class="{ 'side-menu-banner-button': true, 'left': true, 'active': props.buttonLeftActive }">
       <IconElement v-bind:name="props.buttonLeftIcon" v-bind:fill="theme.sideMenuForegroundColor" />
     </a>
-    <a v-if="props.buttonRightIcon" v-on:click="props.buttonRightAction()"
+    <a v-if="props.buttonRightEnabled && props.buttonRightIcon" v-on:click="props.buttonRightAction()"
       v-bind:class="{ 'side-menu-banner-button': true, 'right': true, 'active': props.buttonRightActive }">
       <IconElement v-bind:name="props.buttonRightIcon" v-bind:fill="theme.sideMenuForegroundColor" />
     </a>
