@@ -7,8 +7,12 @@
 - [x] Save color mode choice in browser
 - [x] Page routing
 - [x] Login page
+- [x] Side menu sub menus
+- [x] Navbar component
+- [ ] Navbar on login page
+- [ ] Language selection in navbar
+- [ ] Notification menu
 - [ ] Tooltips
-- [ ] Side menu sub menus
 - [ ] Use argparse for command line options in Python
 
 # Future steps

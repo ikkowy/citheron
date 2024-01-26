@@ -18,6 +18,10 @@ const props = defineProps({
   },
   counter: {
     required: false
+  },
+  active: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -38,14 +42,20 @@ const hovered = ref(false);
 </script>
 
 <template>
-  <a class="header-button" v-bind:style="floatStyle" v-on:mouseover="hovered = true" v-on:mouseleave="hovered = false">
+  <a class="header-button"
+      v-bind:style="floatStyle"
+      v-on:mouseover="hovered = true"
+      v-on:mouseleave="hovered = false"
+      v-bind:class="{ 'active': props.active }">
     <IconElement v-bind:name="props.icon" />
     <span v-if="counterText">{{ counterText }}</span>
+    <a class="active-dash"></a>
   </a>
 </template>
 
 <style scoped>
 .header-button {
+  box-sizing: border-box;
   position: relative;
   display: flex;
   align-items: center;
@@ -67,8 +77,8 @@ const hovered = ref(false);
 }
 
 .header-button span {
-  position: absolute;
   box-sizing: border-box;
+  position: absolute;
   right: 2px;
   bottom: 2px;
   padding: 1px 2px;
@@ -78,5 +88,17 @@ const hovered = ref(false);
   font-weight: bold;
   border-radius: 15%;
   user-select: none;
+}
+
+.header-button.active {
+  background-color: v-bind("theme.headerHoverBackgroundColor");
+}
+
+.header-button .active-dash {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  background-color: v-bind("props.active ? theme.headerForegroundColor : 'transparent'");
 }
 </style>
