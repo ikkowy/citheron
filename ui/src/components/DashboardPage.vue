@@ -154,6 +154,6 @@ main {
   right: 0;
   width: calc(100% - v-bind("sideMenuOpen && sideMenuPinned ? `${sideMenuWidth}` : '0px'"));
   height: 100%;
-  background-color: v-bind("theme.mainBackgroundColor");
+  background-color: v-bind("theme.colBg1");
 }
 </style>

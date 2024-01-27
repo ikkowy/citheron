@@ -1,4 +1,7 @@
 <script setup>
+import { useAppStore } from "@/storages/useAppStore";
+const appStore = useAppStore();
+const { theme } = appStore;
 </script>
 
 <template>
@@ -16,9 +19,12 @@
   padding: 7px 15px;
   border-radius: 5px;
   font-weight: bold;
+  background-color: v-bind("theme.colFg1");
+  color: v-bind("theme.colBg1");
 }
 
 .click-button:hover {
-    cursor: pointer;
+  background-color: v-bind("theme.colFg2");
+  cursor: pointer;
 }
 </style>

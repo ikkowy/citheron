@@ -13,16 +13,42 @@ export const useAppStore = defineStore("app", () => {
         darkModeEnabled.value = enabled;
     }
 
+    const colDark1 = "#000000";
+    const colDark2 = "#101010";
+    const colDark3 = "#202020";
+
+    const colLight1 = "#ffffff";
+    const colLight2 = "#efefef";
+    const colLight3 = "#dfdfdf";
+
+    const colBg1 = computed(() => darkModeEnabled.value ? colDark1 : colLight1);
+    const colBg2 = computed(() => darkModeEnabled.value ? colDark2 : colLight2);
+    const colBg3 = computed(() => darkModeEnabled.value ? colDark3 : colLight3);
+
+    const colFg1 = computed(() => darkModeEnabled.value ? colLight1 : colDark1);
+    const colFg2 = computed(() => darkModeEnabled.value ? colLight2 : colDark2);
+    const colFg3 = computed(() => darkModeEnabled.value ? colLight3 : colDark3);
+
+    const colRed = "hsla(5, 80%, 50%, 1)";
+
     const theme = {
-        headerBackgroundColor: computed(() => darkModeEnabled.value ? "#101010" : "#e0e0e0"),
-        headerForegroundColor: computed(() => darkModeEnabled.value ? "#e0e0e0" : "#101010"),
-        headerHoverBackgroundColor: computed(() => darkModeEnabled.value ? "#202020" : "#d0d0d0"),
-        headerMenuButtonCounterBackgroundColor: "hsla(5, 80%, 50%, 1)",
-        headerMenuButtonCounterForegroundColor: "#e0e0e0",
-        sideMenuBackgroundColor: computed(() => darkModeEnabled.value ? "#101010" : "#e0e0e0"),
-        sideMenuForegroundColor: computed(() => darkModeEnabled.value ? "#ffffff" : "#101010"),
-        sideMenuHoverBackgroundColor: computed(() => darkModeEnabled.value ? "#202020" : "#d0d0d0"),
-        mainBackgroundColor: computed(() => darkModeEnabled.value ? "#000000" : "#ffffff")
+        colDark1: colDark1,
+        colDark2: colDark2,
+        colDark3: colDark3,
+
+        colLight1: colLight1,
+        colLight2: colLight2,
+        colLight3: colLight3,
+
+        colBg1: colBg1,
+        colBg2: colBg2,
+        colBg3: colBg3,
+
+        colFg1: colFg1,
+        colFg2: colFg2,
+        colFg3: colFg3,
+
+        colRed: colRed
     };
 
     return {darkModeEnabled, theme, toggleDarkMode, setDarkMode};

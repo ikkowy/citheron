@@ -42,11 +42,11 @@ const props = defineProps({
   <div class="side-menu-banner" v-if="props.caption || props.buttonLeftEnabled || props.buttonRightEnabled">
     <a v-if="props.buttonLeftEnabled && props.buttonLeftIcon" v-on:click="props.buttonLeftAction()"
       v-bind:class="{ 'side-menu-banner-button': true, 'left': true, 'active': props.buttonLeftActive }">
-      <IconElement v-bind:name="props.buttonLeftIcon" v-bind:fill="theme.sideMenuForegroundColor" />
+      <IconElement v-bind:name="props.buttonLeftIcon" v-bind:fill="theme.colFg2" />
     </a>
     <a v-if="props.buttonRightEnabled && props.buttonRightIcon" v-on:click="props.buttonRightAction()"
       v-bind:class="{ 'side-menu-banner-button': true, 'right': true, 'active': props.buttonRightActive }">
-      <IconElement v-bind:name="props.buttonRightIcon" v-bind:fill="theme.sideMenuForegroundColor" />
+      <IconElement v-bind:name="props.buttonRightIcon" v-bind:fill="theme.colFg2" />
     </a>
     <span v-if="props.caption">{{ props.caption }}</span>
   </div>
@@ -59,14 +59,14 @@ const props = defineProps({
   align-items: center;
   height: 40px;
   font-weight: bold;
-  color: v-bind("theme.sideMenuForegroundColor");
+  color: v-bind("theme.colFg2");
   user-select: none;
 }
 
 .side-menu-banner span {
   padding: 3px 8px;
-  background-color: v-bind("theme.sideMenuForegroundColor");
-  color: v-bind("theme.sideMenuBackgroundColor");
+  background-color: v-bind("theme.colFg2");
+  color: v-bind("theme.colBg2");
   border-radius: 7px;
 }
 
@@ -85,7 +85,7 @@ const props = defineProps({
 }
 
 .side-menu-banner-button.active:hover {
-  background-color: v-bind("theme.sideMenuHoverBackgroundColor");
+  background-color: v-bind("theme.colBg3");
 }
 
 .side-menu-banner-button.left {

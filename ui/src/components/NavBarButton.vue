@@ -66,14 +66,14 @@ const hovered = ref(false);
 }
 
 .header-button:hover {
-  background-color: v-bind("theme.headerHoverBackgroundColor");
+  background-color: v-bind("theme.colBg3");
 }
 
 .header-button svg {
   display: block;
   margin: auto;
   width: 70%;
-  fill: v-bind("theme.headerForegroundColor");
+  fill: v-bind("theme.colFg2");
 }
 
 .header-button span {
@@ -82,8 +82,8 @@ const hovered = ref(false);
   right: 2px;
   bottom: 2px;
   padding: 1px 2px;
-  background-color: v-bind("theme.headerMenuButtonCounterBackgroundColor");
-  color: v-bind("theme.headerMenuButtonCounterForegroundColor");
+  background-color: v-bind("theme.colRed");
+  color: v-bind("theme.colLight2");
   font-size: 10px;
   font-weight: bold;
   border-radius: 15%;
@@ -91,7 +91,7 @@ const hovered = ref(false);
 }
 
 .header-button.active {
-  background-color: v-bind("theme.headerHoverBackgroundColor");
+  background-color: v-bind("theme.colBg3");
 }
 
 .header-button .active-dash {
@@ -99,6 +99,6 @@ const hovered = ref(false);
   width: 100%;
   height: 2px;
   bottom: 0;
-  background-color: v-bind("props.active ? theme.headerForegroundColor : 'transparent'");
+  background-color: v-bind("props.active ? theme.colFg2 : 'transparent'");
 }
 </style>
