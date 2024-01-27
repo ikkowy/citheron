@@ -1,11 +1,23 @@
 <script setup>
+  import { useAppStore } from "@/storages/useAppStore";
+  const appStore = useAppStore();
+  const { toggleDarkMode } = appStore;
+
   import AppLogo from "./AppLogo.vue";
   import TextField from "./TextField.vue";
   import ClickButton from "./ClickButton.vue";
+  import NavBar from "./NavBar.vue";
+  import NavBarButton from "./NavBarButton.vue";
 </script>
 
 <template>
   <div id="login-page">
+    <NavBar>
+      <NavBarButton
+          v-bind:icon="appStore.darkModeEnabled ? 'DarkMode' : 'LightMode'"
+          v-on:click="toggleDarkMode()"
+          float="right" />
+    </NavBar>
     <AppLogo id="app-logo" />
     <form id="login-form">
       <TextField placeholder="Username" icon="Person" />

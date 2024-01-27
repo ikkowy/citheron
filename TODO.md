@@ -9,7 +9,8 @@
 - [x] Login page
 - [x] Side menu sub menus
 - [x] Navbar component
-- [ ] Navbar on login page
+- [x] Navbar on login page
+- [ ] Safe side menu pin state
 - [ ] Language selection in navbar
 - [ ] Notification menu
 - [ ] Tooltips

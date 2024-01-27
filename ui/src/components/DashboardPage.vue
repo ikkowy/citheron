@@ -3,7 +3,7 @@ import { ref, computed, watch, onMounted } from "vue";
 
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
-const { theme, toggleDarkMode, setDarkMode } = appStore;
+const { theme, toggleDarkMode } = appStore;
 
 import NavBar from "./NavBar.vue";
 import NavBarButton from "./NavBarButton.vue";
@@ -56,13 +56,6 @@ const userMenuWidth = computed(() => {
 const userMenuHeight = computed(() => {
   return menusExpanded.value ? "100%" : "initial";
 });
-
-const isDarkModeEnabled = localStorage.getItem("citheron.darkModeEnabled");
-if (isDarkModeEnabled !== null) {
-  setDarkMode(isDarkModeEnabled === "true");
-} else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-  setDarkMode(true);
-}
 
 function closeMenus() {
   sideMenuOpen.value = false;
@@ -126,7 +119,7 @@ onMounted(() => {
           button-left-icon="Back"
           v-bind:button-right-icon="sideMenuPinned ? 'PinSlash' : 'Pin'"
           :button-left-action="previousSideMenuSection"
-          :button-right-action="() => {sideMenuPinned = ! sideMenuPinned}" />
+          :button-right-action="() => {sideMenuPinned = !sideMenuPinned}" />
       <SideMenuSection name="apps">
         <SideMenuEntry label="Notes" icon="Book" />
         <SideMenuEntry label="Tasks" icon="Task" />
@@ -143,7 +136,7 @@ onMounted(() => {
       </SideMenuSection>
     </SideMenu>
 
-    <SideMenu id="user-menu" v-bind:width="userMenuWidth" v-bind:height="userMenuHeight" position="right" entryDash="false" v-bind:top="`${headerHeight}px`" v-bind:open="userMenuOpen">
+    <SideMenu id="user-menu" v-bind:width="userMenuWidth" v-bind:height="userMenuHeight" position="right" entryDash="none" v-bind:top="`${headerHeight}px`" v-bind:open="userMenuOpen">
       <SideMenuEntry label="Help" icon="Help" />
       <SideMenuEntry label="About" icon="Info" />
       <SideMenuEntry label="Logout" icon="Logout" />
