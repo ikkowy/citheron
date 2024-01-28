@@ -18,7 +18,7 @@
       float="right" />
     </NavBar>
     <form id="login-form">
-      <TextField placeholder="Username" icon="Person" />
+      <TextField placeholder="Username" icon="Person" width="100%"/>
       <TextField placeholder="Password" icon="Key" password />
       <ClickButton>Login</ClickButton>
     </form>

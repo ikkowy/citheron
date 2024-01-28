@@ -21,10 +21,11 @@ const { theme } = appStore;
   font-weight: bold;
   background-color: v-bind("theme.colFg1");
   color: v-bind("theme.colBg1");
+  transition: background-color 200ms;
 }
 
 .click-button:hover {
-  background-color: v-bind("theme.colFg2");
+  background-color: v-bind("theme.colFg3");
   cursor: pointer;
 }
 </style>

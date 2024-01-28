@@ -1,16 +1,18 @@
 <script setup>
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme, toggleDarkMode } = appStore;
 
+import DashboardPanel from "./DashboardPanel.vue";
 import NavBar from "./NavBar.vue";
 import NavBarButton from "./NavBarButton.vue";
 import SideMenu from "./SideMenu.vue";
 import SideMenuEntry from "./SideMenuEntry.vue";
 import SideMenuSection from "./SideMenuSection.vue";
 import SideMenuBanner from "./SideMenuBanner.vue";
+import TextField from "./TextField.vue";
 
 const appWidth = ref(window.innerWidth);
 const appHeight = ref(window.innerHeight);
@@ -27,17 +29,17 @@ const userMenuOpen = ref(false);
 
 const sideMenuPinned = ref(false);
 
-watch(sideMenuOpen, () => {
-  if (sideMenuOpen.value) {
-    userMenuOpen.value = false;
-  }
-});
+// watch(sideMenuOpen, () => {
+//   if (sideMenuOpen.value) {
+//     userMenuOpen.value = false;
+//   }
+// });
 
-watch(userMenuOpen, () => {
-  if (userMenuOpen.value) {
-    sideMenuOpen.value = false;
-  }
-});
+// watch(userMenuOpen, () => {
+//   if (userMenuOpen.value) {
+//     sideMenuOpen.value = false;
+//   }
+// });
 
 const menuExpandLimit = 600;
 
@@ -58,7 +60,8 @@ const userMenuHeight = computed(() => {
 });
 
 function closeMenus() {
-  sideMenuOpen.value = false;
+  if (!sideMenuPinned.value)
+    sideMenuOpen.value = false;
   userMenuOpen.value = false;
 }
 
@@ -108,18 +111,20 @@ onMounted(() => {
     </NavBar>
 
     <main v-if="!(menusExpanded && sideMenuOpen)" v-on:click="closeMenus()">
-      <span style="color: white">Test</span>
+      <DashboardPanel>
+        <TextField icon="Search" button="Search" />
+      </DashboardPanel>
     </main>
 
     <SideMenu id="side-menu" v-bind:width="sideMenuWidth" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" entry-dash="left" v-bind:open="sideMenuOpen">
       <SideMenuBanner
-          v-bind:caption="sideMenuBannerCaption"
-          v-bind:button-left-active="sideMenuPreviousSection"
-          v-bind:button-right-active="!menusExpanded"
-          button-left-icon="Back"
-          v-bind:button-right-icon="sideMenuPinned ? 'PinSlash' : 'Pin'"
-          :button-left-action="previousSideMenuSection"
-          :button-right-action="() => {sideMenuPinned = !sideMenuPinned}" />
+      v-bind:caption="sideMenuBannerCaption"
+      v-bind:button-left-active="sideMenuPreviousSection"
+      v-bind:button-right-active="!menusExpanded"
+      button-left-icon="Back"
+      v-bind:button-right-icon="sideMenuPinned ? 'PinSlash' : 'Pin'"
+      :button-left-action="previousSideMenuSection"
+      :button-right-action="() => {sideMenuPinned = !sideMenuPinned}" />
       <SideMenuSection name="apps">
         <SideMenuEntry label="Notes" icon="Book" />
         <SideMenuEntry label="Tasks" icon="Task" />

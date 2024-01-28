@@ -8,54 +8,45 @@ const { theme } = appStore;
 import IconElement from "./IconElement.vue";
 
 const props = defineProps({
+  width: String,
   placeholder: String,
   icon: String,
   password: Boolean,
-  invalid: Boolean
+  invalid: Boolean,
+  button: String
 });
 
 const showPassword = ref(false);
 const focus = ref(false);
-
-// const border = computed(() => {
-//   if (focus.value || props.invalid) return "1px solid #ffffff";
-//   return "1px solid #dfdfdf";
-// });
-
-// const outline = computed(() => {
-//   if (props.invalid) return "2px solid hsla(5, 80%, 50%, 1)";
-//   return focus.value ? "2px solid #202020" : "none";
-// });
-
-// const iconColor = computed(() => {
-//   return props.invalid ? "hsla(5, 80%, 50%, 1)" : "#202020";
-// });
-
-// const textColor = computed(() => {
-//   return props.invalid ? "hsla(5, 80%, 50%, 1)" : "#202020";
-// });
 </script>
 
 <template>
-  <div class="text-field">
-    <IconElement v-if="props.icon" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="props.icon" />
-    <input class="text-field-input" v-bind:type="props.password && !showPassword ? 'password' : 'text'" v-bind:placeholder="props.placeholder" v-on:focusin="focus = true" v-on:focusout="focus = false">
-    <IconElement class="text-field-show-password" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="showPassword ? 'VisibilityOff' : 'Visibility'" v-if="props.password" v-on:click="showPassword = !showPassword" />
+  <div class="text-field" v-bind:width="props.width">
+    <div class="text-field-inner">
+      <IconElement v-if="props.icon" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="props.icon" />
+      <input class="text-field-input" v-bind:type="props.password && !showPassword ? 'password' : 'text'" v-bind:placeholder="props.placeholder" v-on:focusin="focus = true" v-on:focusout="focus = false">
+      <IconElement class="text-field-show-password" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="showPassword ? 'VisibilityOff' : 'Visibility'" v-if="props.password" v-on:click="showPassword = !showPassword" />
+    </div>
+    <button class="text-field-button" v-if="props.button">{{ props.button }}</button>
   </div>
 </template>
 
 <style scoped>
 .text-field {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  border: 1px solid v-bind("props.invalid ? theme.colRed : theme.colFg1");
-  padding: 6px 12px;
-  border-radius: 5px;
+  display: inline-flex;
 }
 
-.text-field:focus-within {
-  outline: 1px solid v-bind("props.invalid ? theme.colRed : theme.colFg1");
+.text-field-inner {
+  display: inline-flex;
+  position: relative;
+  flex-direction: row;
+  gap: 10px;
+  padding: 6px 12px;
+  border: 1px solid v-bind("props.invalid ? theme.colRed : theme.colFg1");
+  border-right: v-bind("props.button ? 'none' : `1px solid ${props.invalid ? theme.colRed : theme.colFg1}`");
+  border-radius: 5px;
+  border-top-right-radius: v-bind("props.button ? '0' : '5px'");
+  border-bottom-right-radius: v-bind("props.button ? '0' : '5px'");
 }
 
 .text-field-input {
@@ -75,5 +66,22 @@ const focus = ref(false);
 
 .text-field-show-password:hover {
   cursor: pointer;
+}
+
+.text-field button {
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: v-bind("theme.colFg1");
+  /* background-color: red; */
+  color: v-bind("theme.colBg1");
+  transition: background-color 200ms;
+}
+
+.text-field button:hover {
+  cursor: pointer;
+  background-color: v-bind("theme.colFg3");
 }
 </style>
