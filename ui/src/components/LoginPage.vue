@@ -20,7 +20,7 @@
     <form id="login-form">
       <TextField placeholder="Username" icon="Person" width="100%"/>
       <TextField placeholder="Password" icon="Key" password />
-      <ClickButton>Login</ClickButton>
+      <ClickButton inverted>Login</ClickButton>
     </form>
   </div>
 </template>
@@ -29,7 +29,7 @@
 #login-page {
   height: 100vh;
   text-align: center;
-  background: linear-gradient(90deg, rgba(0,82,198,1) 0%, rgba(0,212,255,1) 100%);
+  background-color: v-bind("theme.colBg1");
 }
 
 #login-form {
@@ -41,7 +41,8 @@
   margin-left: auto;
   margin-right: auto;
   padding: 20px;
-  background-color: v-bind("theme.colBg1");
+  /* background-color: v-bind("theme.colBg1"); */
   border-radius: 5px;
+  border: 2px solid v-bind("theme.colFg1");
 }
 </style>

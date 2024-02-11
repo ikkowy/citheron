@@ -5,6 +5,7 @@ import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme, toggleDarkMode } = appStore;
 
+import ClickButton from "./ClickButton.vue";
 import DashboardPanel from "./DashboardPanel.vue";
 import NavBar from "./NavBar.vue";
 import NavBarButton from "./NavBarButton.vue";
@@ -22,24 +23,12 @@ window.addEventListener("resize", () => {
   appHeight.value = document.getElementById("app").offsetHeight;
 });
 
-const headerHeight = 40; // TODO: replace
+const headerHeight = 42; // TODO: replace
 
 const sideMenuOpen = ref(false);
 const userMenuOpen = ref(false);
 
 const sideMenuPinned = ref(false);
-
-// watch(sideMenuOpen, () => {
-//   if (sideMenuOpen.value) {
-//     userMenuOpen.value = false;
-//   }
-// });
-
-// watch(userMenuOpen, () => {
-//   if (userMenuOpen.value) {
-//     sideMenuOpen.value = false;
-//   }
-// });
 
 const menuExpandLimit = 600;
 
@@ -113,7 +102,22 @@ onMounted(() => {
     <main v-if="!(menusExpanded && sideMenuOpen)" v-on:click="closeMenus()">
       <DashboardPanel>
         <TextField icon="Search" button="Search" />
+        <br><br>
+        <ClickButton>Button</ClickButton>
+        &nbsp;
+        <ClickButton inverted>Inverted Button</ClickButton>
+        &nbsp;
+        <ClickButton toggle inverted>Toggle Button</ClickButton>
+        <br><br>
+        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colRed}`"></div>
+        &nbsp;
+        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colBlue}`"></div>
+        &nbsp;
+        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colGreen}`"></div>
+        &nbsp;
+        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colYellow}`"></div>
       </DashboardPanel>
+
     </main>
 
     <SideMenu id="side-menu" v-bind:width="sideMenuWidth" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" entry-dash="left" v-bind:open="sideMenuOpen">
@@ -160,5 +164,14 @@ main {
   width: calc(100% - v-bind("sideMenuOpen && sideMenuPinned ? `${sideMenuWidth}` : '0px'"));
   height: 100%;
   background-color: v-bind("theme.colBg1");
+}
+
+#side-menu {
+  border-right: 2px solid v-bind("theme.colFg1");
+}
+
+#user-menu {
+  border-left: 2px solid v-bind("theme.colFg1");
+  border-bottom: 2px solid v-bind("theme.colFg1");
 }
 </style>

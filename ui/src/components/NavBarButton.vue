@@ -49,7 +49,6 @@ const hovered = ref(false);
       v-bind:class="{ 'active': props.active }">
     <IconElement v-bind:name="props.icon" />
     <span v-if="counterText">{{ counterText }}</span>
-    <a class="active-dash"></a>
   </a>
 </template>
 
@@ -61,19 +60,23 @@ const hovered = ref(false);
   align-items: center;
   height: 100%;
   aspect-ratio: 1 / 1;
-  background-color: v-bind(backgroundColor);
+  background-color: v-bind("theme.colBg1");
   cursor: pointer;
 }
 
 .header-button:hover {
-  background-color: v-bind("theme.colBg3");
+  background-color: v-bind("theme.colFg1");
 }
 
 .header-button svg {
   display: block;
   margin: auto;
   width: 70%;
-  fill: v-bind("theme.colFg2");
+  fill: v-bind("theme.colFg1");
+}
+
+.header-button:hover svg {
+  fill: v-bind("theme.colBg1");
 }
 
 .header-button span {
@@ -91,14 +94,10 @@ const hovered = ref(false);
 }
 
 .header-button.active {
-  background-color: v-bind("theme.colBg3");
+  background-color: v-bind("theme.colFg1");
 }
 
-.header-button .active-dash {
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  background-color: v-bind("props.active ? theme.colFg2 : 'transparent'");
+.header-button.active svg {
+  fill: v-bind("theme.colBg1");
 }
 </style>

@@ -33,14 +33,23 @@ const entryDash = inject("entryDash");
   padding-right: 20px;
   border-left: none;
   border-right: none;
-  background-color: v-bind("theme.colBg2");
+  background-color: v-bind("theme.colBg1");
   color: v-bind("theme.colFg2");
   user-select: none;
 }
 
 .side-menu-entry:hover {
   cursor: pointer;
-  background-color: v-bind("theme.colBg3");
+  background-color: v-bind("theme.colFg1");
+  color: v-bind("theme.colBg1");
+}
+
+.side-menu-entry svg {
+  fill: v-bind("theme.colFg1");
+}
+
+.side-menu-entry:hover svg {
+  fill: v-bind("theme.colBg1");
 }
 
 .side-menu-entry span {
@@ -48,7 +57,7 @@ const entryDash = inject("entryDash");
   font-weight: bold;
 }
 
-.side-menu-entry-dash-left:hover {
+/* .side-menu-entry-dash-left:hover {
   padding-left: 15px;
   border-left: 5px solid v-bind("theme.colFg2");
 }
@@ -56,5 +65,5 @@ const entryDash = inject("entryDash");
 .side-menu-entry-dash-right:hover {
   padding-right: 15px;
   border-right: 5px solid v-bind("theme.colFg2");
-}
+} */
 </style>

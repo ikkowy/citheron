@@ -42,8 +42,8 @@ const focus = ref(false);
   flex-direction: row;
   gap: 10px;
   padding: 6px 12px;
-  border: 1px solid v-bind("props.invalid ? theme.colRed : theme.colFg1");
-  border-right: v-bind("props.button ? 'none' : `1px solid ${props.invalid ? theme.colRed : theme.colFg1}`");
+  border: 2px solid v-bind("props.invalid ? theme.colRed : theme.colFg1");
+  border-right: v-bind("props.button ? 'none' : `2px solid ${props.invalid ? theme.colRed : theme.colFg1}`");
   border-radius: 5px;
   border-top-right-radius: v-bind("props.button ? '0' : '5px'");
   border-bottom-right-radius: v-bind("props.button ? '0' : '5px'");
@@ -64,6 +64,11 @@ const focus = ref(false);
   opacity: 1;
 }
 
+.text-field-input::selection {
+  background-color: v-bind("theme.colFg1");
+  color: v-bind("theme.colBg1");
+}
+
 .text-field-show-password:hover {
   cursor: pointer;
 }
@@ -74,14 +79,15 @@ const focus = ref(false);
   border: none;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  background-color: v-bind("theme.colFg1");
-  /* background-color: red; */
-  color: v-bind("theme.colBg1");
-  transition: background-color 200ms;
+  font-weight: bold;
+  border: 2px solid v-bind("props.invalid ? theme.colRed : theme.colFg1");
+  background-color: v-bind("props.invalid ? theme.colRed : theme.colFg1");
+  color: v-bind("props.invalid ? theme.colLight1 : theme.colBg1");
+  cursor: pointer;
 }
 
-.text-field button:hover {
-  cursor: pointer;
-  background-color: v-bind("theme.colFg3");
+.text-field button:active {
+  background-color: v-bind("theme.colBg1");
+  color: v-bind("props.invalid ? theme.colRed : theme.colFg1");
 }
 </style>

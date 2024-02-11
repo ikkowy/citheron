@@ -80,12 +80,20 @@ const props = defineProps({
   cursor: pointer;
 }
 
-.side-menu-banner-button:not(.active) {
-  opacity: 0.5;
+.side-menu-banner-button svg {
+  fill: v-bind("theme.colFg1");
+}
+
+.side-menu-banner-button:not(.active) svg {
+  fill: #505050;
 }
 
 .side-menu-banner-button.active:hover {
-  background-color: v-bind("theme.colBg3");
+  background-color: v-bind("theme.colFg1");
+}
+
+.side-menu-banner-button.active:hover svg {
+  fill: v-bind("theme.colBg1");
 }
 
 .side-menu-banner-button.left {

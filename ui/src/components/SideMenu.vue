@@ -46,11 +46,11 @@ const right = computed(() => {
 .side-menu {
   box-sizing: border-box;
   position: absolute;
-  overflow: hidden;
+  overflow: scroll;
   top: v-bind("props.top");
   right: v-bind(right);
   width: v-bind("props.open ? props.width : '0px'");
   height: v-bind("props.height");
-  background-color: v-bind("theme.colBg2");
+  background-color: v-bind("theme.colBg1");
 }
 </style>
