@@ -41,6 +41,7 @@ const focus = ref(false);
   position: relative;
   flex-direction: row;
   gap: 10px;
+  width: 100%;
   padding: 6px 12px;
   border: 2px solid v-bind("props.invalid ? theme.colRed : theme.colFg1");
   border-right: v-bind("props.button ? 'none' : `2px solid ${props.invalid ? theme.colRed : theme.colFg1}`");
@@ -61,7 +62,7 @@ const focus = ref(false);
 }
 
 .text-field-input::placeholder {
-  opacity: 1;
+  opacity: 0.7;
 }
 
 .text-field-input::selection {

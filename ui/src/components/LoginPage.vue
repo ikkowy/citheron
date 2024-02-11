@@ -41,8 +41,7 @@
   margin-left: auto;
   margin-right: auto;
   padding: 20px;
-  /* background-color: v-bind("theme.colBg1"); */
-  border-radius: 5px;
   border: 2px solid v-bind("theme.colFg1");
+  border-radius: 5px;
 }
 </style>

@@ -167,11 +167,11 @@ main {
 }
 
 #side-menu {
-  border-right: 2px solid v-bind("theme.colFg1");
+  border-right: v-bind("!sideMenuOpen || menusExpanded ? 'none' : `2px solid ${theme.colFg1}`");
 }
 
 #user-menu {
-  border-left: 2px solid v-bind("theme.colFg1");
+  border-left: v-bind("!userMenuOpen || menusExpanded ? 'none' : `2px solid ${theme.colFg1}`");
   border-bottom: 2px solid v-bind("theme.colFg1");
 }
 </style>
