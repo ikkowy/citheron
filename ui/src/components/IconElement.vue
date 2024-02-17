@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps } from "vue";
-
 import IconAccountCircle from "./icons/IconAccountCircle.vue";
 import IconBack from "./icons/IconBack.vue";
 import IconBook from "./icons/IconBook.vue";

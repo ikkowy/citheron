@@ -5,7 +5,6 @@ import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme } = appStore;
 
-import { defineProps } from "vue";
 const props = defineProps({
   inverted: Boolean,
   toggle: Boolean
@@ -13,7 +12,7 @@ const props = defineProps({
 
 const toggled = ref(false);
 
-function toggle() {
+function toggle_() {
   if (props.toggle) {
     toggled.value = !toggled.value;
   }
@@ -21,7 +20,7 @@ function toggle() {
 </script>
 
 <template>
-  <button class="click-button" v-bind:class="{ inverted: props.inverted ^ toggled }" v-on:click="toggle()">
+  <button class="click-button" v-bind:class="{ inverted: props.inverted ^ toggled }" v-on:click="toggle_()">
     <slot />
   </button>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps, provide } from "vue";
+import { computed, provide } from "vue";
 
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();

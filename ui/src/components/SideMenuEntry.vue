@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, inject } from "vue";
+import { inject } from "vue";
 
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
