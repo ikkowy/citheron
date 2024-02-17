@@ -10,7 +10,7 @@ import IconKey from "./icons/IconKey.vue";
 import IconLightMode from "./icons/IconLightMode.vue";
 import IconLogout from "./icons/IconLogout.vue";
 import IconMenu from "./icons/IconMenu.vue";
-import IconMenuOpen from "./icons/IconMenuOpen";
+import IconMenuOpen from "./icons/IconMenuOpen.vue";
 import IconNotifications from "./icons/IconNotifications.vue";
 import IconPerson from "./icons/IconPerson.vue";
 import IconPin from "./icons/IconPin.vue";
