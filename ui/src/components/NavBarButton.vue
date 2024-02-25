@@ -1,8 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
 
-import IconElement from "./IconElement.vue";
-
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme } = appStore;
@@ -47,7 +45,7 @@ const hovered = ref(false);
       v-on:mouseover="hovered = true"
       v-on:mouseleave="hovered = false"
       v-bind:class="{ 'active': props.active }">
-    <IconElement v-bind:name="props.icon" />
+    <iwy-icon v-bind:name="props.icon" />
     <span v-if="counterText">{{ counterText }}</span>
   </a>
 </template>

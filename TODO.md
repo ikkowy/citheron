@@ -20,3 +20,4 @@
 
 - [ ] Keyboard usability
 - [ ] Improve accessibility (screen reader, high contrast)
+- [ ] MFA using TOTP

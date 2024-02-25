@@ -84,24 +84,24 @@ onMounted(() => {
   <div id="dashboard-page">
     <NavBar>
       <NavBarButton
-          v-bind:icon="sideMenuOpen ? 'MenuOpen' : 'Menu'"
+          v-bind:icon="sideMenuOpen ? 'menu-open' : 'menu'"
           v-on:click="sideMenuOpen = !sideMenuOpen"
           v-bind:active="sideMenuOpen" />
       <NavBarButton
-          icon="AccountCircle"
+          icon="user-circle"
           float="right"
           v-on:click="userMenuOpen = !userMenuOpen"
           v-bind:active="userMenuOpen" />
-      <NavBarButton icon="Notifications" float="right" counter="42" />
+      <NavBarButton icon="bell" float="right" counter="42" />
       <NavBarButton
-          v-bind:icon="appStore.darkModeEnabled ? 'DarkMode' : 'LightMode'"
+          v-bind:icon="appStore.darkModeEnabled ? 'dark' : 'light'"
           v-on:click="toggleDarkMode()"
           float="right" />
     </NavBar>
 
     <main v-if="!(menusExpanded && sideMenuOpen)" v-on:click="closeMenus()">
       <DashboardPanel>
-        <TextField icon="Search" button="Search" />
+        <TextField icon="search" button="Search" />
         <br><br>
         <ClickButton>Button</ClickButton>
         &nbsp;
@@ -125,30 +125,30 @@ onMounted(() => {
       v-bind:caption="sideMenuBannerCaption"
       v-bind:button-left-active="sideMenuPreviousSection"
       v-bind:button-right-active="!menusExpanded"
-      button-left-icon="Back"
-      v-bind:button-right-icon="sideMenuPinned ? 'PinSlash' : 'Pin'"
+      button-left-icon="back"
+      v-bind:button-right-icon="sideMenuPinned ? 'pin-off' : 'pin'"
       :button-left-action="previousSideMenuSection"
       :button-right-action="() => {sideMenuPinned = !sideMenuPinned}" />
       <SideMenuSection name="apps">
-        <SideMenuEntry label="Notes" icon="Book" />
-        <SideMenuEntry label="Tasks" icon="Task" />
-        <SideMenuEntry label="Vaults" icon="Vault" />
-        <SideMenuEntry label="Administration" icon="Server" v-on:click="changeSideMenuSection('admin')" />
-        <SideMenuEntry label="Settings" icon="Settings" v-on:click="changeSideMenuSection('settings')" />
+        <SideMenuEntry label="Notes" icon="book" />
+        <SideMenuEntry label="Tasks" icon="task" />
+        <SideMenuEntry label="Vaults" icon="vault" />
+        <SideMenuEntry label="Administration" icon="server" v-on:click="changeSideMenuSection('admin')" />
+        <SideMenuEntry label="Settings" icon="gear" v-on:click="changeSideMenuSection('settings')" />
       </SideMenuSection>
       <SideMenuSection name="admin" caption="Administration" back="apps">
-        <SideMenuEntry label="Users" icon="Person" />
-        <SideMenuEntry label="Groups" icon="Group" />
-        <SideMenuEntry label="Authentication" icon="Key" />
+        <SideMenuEntry label="Users" icon="user" />
+        <SideMenuEntry label="Groups" icon="group" />
+        <SideMenuEntry label="Authentication" icon="key" />
       </SideMenuSection>
       <SideMenuSection name="settings" caption="Settings" back="apps">
       </SideMenuSection>
     </SideMenu>
 
     <SideMenu id="user-menu" v-bind:width="userMenuWidth" v-bind:height="userMenuHeight" position="right" entryDash="none" v-bind:top="`${headerHeight}px`" v-bind:open="userMenuOpen">
-      <SideMenuEntry label="Help" icon="Help" />
-      <SideMenuEntry label="About" icon="Info" />
-      <SideMenuEntry label="Logout" icon="Logout" />
+      <SideMenuEntry label="Help" icon="help" />
+      <SideMenuEntry label="About" icon="info" />
+      <SideMenuEntry label="Logout" icon="exit" />
     </SideMenu>
   </div>
 </template>

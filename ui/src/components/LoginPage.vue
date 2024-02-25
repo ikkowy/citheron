@@ -13,13 +13,13 @@
   <div id="login-page">
     <NavBar>
       <NavBarButton
-      v-bind:icon="appStore.darkModeEnabled ? 'DarkMode' : 'LightMode'"
+      v-bind:icon="appStore.darkModeEnabled ? 'dark' : 'light'"
       v-on:click="toggleDarkMode()"
       float="right" />
     </NavBar>
     <form id="login-form">
-      <TextField placeholder="Username" icon="Person" width="100%"/>
-      <TextField placeholder="Password" icon="Key" password />
+      <TextField placeholder="Username" icon="user" width="100%"/>
+      <TextField placeholder="Password" icon="key" password />
       <ClickButton inverted>Login</ClickButton>
     </form>
   </div>

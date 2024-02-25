@@ -5,8 +5,6 @@ import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme } = appStore;
 
-import IconElement from "./IconElement.vue";
-
 const props = defineProps({
   label: String,
   icon: String
@@ -17,7 +15,7 @@ const entryDash = inject("entryDash");
 
 <template>
   <div class="side-menu-entry" v-bind:class="`side-menu-entry-dash-${entryDash}`">
-    <IconElement v-if="props.icon" v-bind:name="props.icon" v-bind:fill="theme.colFg2" />
+    <IwyIcon v-if="props.icon" v-bind:name="props.icon" v-bind:fill="theme.colFg2" />
     <span>{{ props.label }}</span>
   </div>
 </template>

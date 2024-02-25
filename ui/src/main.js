@@ -7,6 +7,8 @@ import App from "./App.vue";
 import DashboardPage from "./components/DashboardPage.vue";
 import LoginPage from "./components/LoginPage.vue";
 
+import IwyIconsVue from "@ikkowy/icons-vue";
+
 const pinia = createPinia();
 
 const routes = [
@@ -25,6 +27,8 @@ const app = createApp(App);
 app.use(pinia);
 
 app.use(router);
+
+app.use(IwyIconsVue);
 
 app.mount("#app");
 

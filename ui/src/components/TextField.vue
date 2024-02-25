@@ -5,8 +5,6 @@ import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme } = appStore;
 
-import IconElement from "./IconElement.vue";
-
 const props = defineProps({
   width: String,
   placeholder: String,
@@ -23,9 +21,9 @@ const focus = ref(false);
 <template>
   <div class="text-field" v-bind:width="props.width">
     <div class="text-field-inner">
-      <IconElement v-if="props.icon" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="props.icon" />
+      <iwy-icon v-if="props.icon" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="props.icon" />
       <input class="text-field-input" v-bind:type="props.password && !showPassword ? 'password' : 'text'" v-bind:placeholder="props.placeholder" v-on:focusin="focus = true" v-on:focusout="focus = false">
-      <IconElement class="text-field-show-password" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="showPassword ? 'VisibilityOff' : 'Visibility'" v-if="props.password" v-on:click="showPassword = !showPassword" />
+      <iwy-icon class="text-field-show-password" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="showPassword ? 'VisibilityOff' : 'Visibility'" v-if="props.password" v-on:click="showPassword = !showPassword" />
     </div>
     <button class="text-field-button" v-if="props.button">{{ props.button }}</button>
   </div>
