@@ -5,7 +5,6 @@ import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme, toggleDarkMode } = appStore;
 
-import ClickButton from "./ClickButton.vue";
 import DashboardPanel from "./DashboardPanel.vue";
 import NavBar from "./NavBar.vue";
 import NavBarButton from "./NavBarButton.vue";
@@ -13,7 +12,9 @@ import SideMenu from "./SideMenu.vue";
 import SideMenuEntry from "./SideMenuEntry.vue";
 import SideMenuSection from "./SideMenuSection.vue";
 import SideMenuBanner from "./SideMenuBanner.vue";
-import TextField from "./TextField.vue";
+
+import IwyButton from "./iwy/IwyButton.vue";
+import IwyTextField from "./iwy/IwyTextField.vue";
 
 const appWidth = ref(window.innerWidth);
 const appHeight = ref(window.innerHeight);
@@ -101,13 +102,11 @@ onMounted(() => {
 
     <main v-if="!(menusExpanded && sideMenuOpen)" v-on:click="closeMenus()">
       <DashboardPanel>
-        <TextField icon="search" button="Search" />
+        <IwyTextField icon="search" button="Search" />
         <br><br>
-        <ClickButton>Button</ClickButton>
+        <IwyButton label="Button" />
         &nbsp;
-        <ClickButton inverted>Inverted Button</ClickButton>
-        &nbsp;
-        <ClickButton toggle inverted>Toggle Button</ClickButton>
+        <IwyButton label="Book now!" icon="book" />
         <br><br>
         <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colRed}`"></div>
         &nbsp;
@@ -122,17 +121,17 @@ onMounted(() => {
 
     <SideMenu id="side-menu" v-bind:width="sideMenuWidth" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" entry-dash="left" v-bind:open="sideMenuOpen">
       <SideMenuBanner
-      v-bind:caption="sideMenuBannerCaption"
-      v-bind:button-left-active="sideMenuPreviousSection"
-      v-bind:button-right-active="!menusExpanded"
-      button-left-icon="back"
-      v-bind:button-right-icon="sideMenuPinned ? 'pin-off' : 'pin'"
-      :button-left-action="previousSideMenuSection"
-      :button-right-action="() => {sideMenuPinned = !sideMenuPinned}" />
+        v-bind:caption="sideMenuBannerCaption"
+        v-bind:button-left-active="sideMenuPreviousSection"
+        v-bind:button-right-active="!menusExpanded"
+        button-left-icon="chevron-left"
+        v-bind:button-right-icon="sideMenuPinned ? 'pin-off' : 'pin'"
+        :button-left-action="previousSideMenuSection"
+        :button-right-action="() => {sideMenuPinned = !sideMenuPinned}" />
       <SideMenuSection name="apps">
         <SideMenuEntry label="Notes" icon="book" />
         <SideMenuEntry label="Tasks" icon="task" />
-        <SideMenuEntry label="Vaults" icon="vault" />
+        <SideMenuEntry label="Vault" icon="vault" />
         <SideMenuEntry label="Administration" icon="server" v-on:click="changeSideMenuSection('admin')" />
         <SideMenuEntry label="Settings" icon="gear" v-on:click="changeSideMenuSection('settings')" />
       </SideMenuSection>

@@ -53,15 +53,6 @@ const entryDash = inject("entryDash");
 .side-menu-entry span {
   margin-left: 10px;
   font-weight: bold;
+  height: 1em;
 }
-
-/* .side-menu-entry-dash-left:hover {
-  padding-left: 15px;
-  border-left: 5px solid v-bind("theme.colFg2");
-}
-
-.side-menu-entry-dash-right:hover {
-  padding-right: 15px;
-  border-right: 5px solid v-bind("theme.colFg2");
-} */
 </style>

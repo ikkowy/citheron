@@ -3,10 +3,11 @@
   const appStore = useAppStore();
   const { theme, toggleDarkMode } = appStore;
 
-  import TextField from "./TextField.vue";
-  import ClickButton from "./ClickButton.vue";
   import NavBar from "./NavBar.vue";
   import NavBarButton from "./NavBarButton.vue";
+
+  import IwyButton from "./iwy/IwyButton.vue";
+  import IwyTextField from "./iwy/IwyTextField.vue";
 </script>
 
 <template>
@@ -18,9 +19,9 @@
       float="right" />
     </NavBar>
     <form id="login-form">
-      <TextField placeholder="Username" icon="user" width="100%"/>
-      <TextField placeholder="Password" icon="key" password />
-      <ClickButton inverted>Login</ClickButton>
+      <IwyTextField placeholder="Username" icon="user" width="100%"/>
+      <IwyTextField placeholder="Password" icon="key" password />
+      <IwyButton label="Login" />
     </form>
   </div>
 </template>

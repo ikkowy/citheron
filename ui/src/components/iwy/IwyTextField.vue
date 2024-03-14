@@ -21,9 +21,9 @@ const focus = ref(false);
 <template>
   <div class="text-field" v-bind:width="props.width">
     <div class="text-field-inner">
-      <iwy-icon v-if="props.icon" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="props.icon" />
+      <IwyIcon v-if="props.icon" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="props.icon" />
       <input class="text-field-input" v-bind:type="props.password && !showPassword ? 'password' : 'text'" v-bind:placeholder="props.placeholder" v-on:focusin="focus = true" v-on:focusout="focus = false">
-      <iwy-icon class="text-field-show-password" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="showPassword ? 'VisibilityOff' : 'Visibility'" v-if="props.password" v-on:click="showPassword = !showPassword" />
+      <IwyIcon class="text-field-show-password" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="showPassword ? 'eye-off' : 'eye'" v-if="props.password" v-on:click="showPassword = !showPassword" />
     </div>
     <button class="text-field-button" v-if="props.button">{{ props.button }}</button>
   </div>
@@ -60,7 +60,7 @@ const focus = ref(false);
 }
 
 .text-field-input::placeholder {
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .text-field-input::selection {
