@@ -5,7 +5,6 @@ import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme, toggleDarkMode } = appStore;
 
-import DashboardPanel from "./DashboardPanel.vue";
 import NavBar from "./NavBar.vue";
 import NavBarButton from "./NavBarButton.vue";
 import SideMenu from "./SideMenu.vue";
@@ -13,8 +12,8 @@ import SideMenuEntry from "./SideMenuEntry.vue";
 import SideMenuSection from "./SideMenuSection.vue";
 import SideMenuBanner from "./SideMenuBanner.vue";
 
-import IwyButton from "./iwy/IwyButton.vue";
-import IwyTextField from "./iwy/IwyTextField.vue";
+import DemoPanel from "./panels/DemoPanel.vue";
+import UserPanel from "./panels/UserPanel.vue";
 
 const appWidth = ref(window.innerWidth);
 const appHeight = ref(window.innerHeight);
@@ -101,22 +100,8 @@ onMounted(() => {
     </NavBar>
 
     <main v-if="!(menusExpanded && sideMenuOpen)" v-on:click="closeMenus()">
-      <DashboardPanel>
-        <IwyTextField icon="search" button="Search" />
-        <br><br>
-        <IwyButton label="Button" />
-        &nbsp;
-        <IwyButton label="Book now!" icon="book" />
-        <br><br>
-        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colRed}`"></div>
-        &nbsp;
-        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colBlue}`"></div>
-        &nbsp;
-        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colGreen}`"></div>
-        &nbsp;
-        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colYellow}`"></div>
-      </DashboardPanel>
-
+      <!-- <DemoPanel /> -->
+      <UserPanel />
     </main>
 
     <SideMenu id="side-menu" v-bind:width="sideMenuWidth" v-bind:height="`${appHeight - headerHeight}px`" v-bind:top="`${headerHeight}px`" entry-dash="left" v-bind:open="sideMenuOpen">

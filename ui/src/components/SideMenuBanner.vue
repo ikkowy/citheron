@@ -60,10 +60,11 @@ const props = defineProps({
 }
 
 .side-menu-banner span {
-  padding: 3px 8px;
+  padding: 6px 8px;
   background-color: v-bind("theme.colFg1");
   color: v-bind("theme.colBg1");
   border-radius: 7px;
+  height: 1em;
 }
 
 .side-menu-banner-button {

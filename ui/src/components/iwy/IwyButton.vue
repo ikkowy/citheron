@@ -16,7 +16,7 @@ const toggled = ref(false);
 <template>
   <button class="iwy-button">
     <IwyIcon v-if="props.icon" v-bind:name="props.icon" />
-    <span>{{ props.label }}</span>
+    <span v-if="props.label">{{ props.label }}</span>
   </button>
 </template>
 
@@ -53,14 +53,6 @@ const toggled = ref(false);
   background-color: v-bind("theme.colBg1");
   color: v-bind("theme.colFg1");
 }
-
-/* .iwy-button.inverted {
-
-}
-
-.iwy-button.inverted:active {
-
-} */
 
 .iwy-button svg {
   fill: v-bind("theme.colBg1");

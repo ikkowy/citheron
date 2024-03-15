@@ -19,25 +19,27 @@ const focus = ref(false);
 </script>
 
 <template>
-  <div class="text-field" v-bind:width="props.width">
-    <div class="text-field-inner">
+  <div class="iwy-text-field" v-bind:width="props.width">
+    <div class="iwy-text-field-inner">
       <IwyIcon v-if="props.icon" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="props.icon" />
-      <input class="text-field-input" v-bind:type="props.password && !showPassword ? 'password' : 'text'" v-bind:placeholder="props.placeholder" v-on:focusin="focus = true" v-on:focusout="focus = false">
-      <IwyIcon class="text-field-show-password" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="showPassword ? 'eye-off' : 'eye'" v-if="props.password" v-on:click="showPassword = !showPassword" />
+      <input class="iwy-text-field-input" v-bind:type="props.password && !showPassword ? 'password' : 'text'" v-bind:placeholder="props.placeholder" v-on:focusin="focus = true" v-on:focusout="focus = false">
+      <IwyIcon class="iwy-text-field-show-password" v-bind:fill="props.invalid ? theme.colRed : theme.colFg1" v-bind:name="showPassword ? 'eye-off' : 'eye'" v-if="props.password" v-on:click="showPassword = !showPassword" />
     </div>
-    <button class="text-field-button" v-if="props.button">{{ props.button }}</button>
+    <button class="iwy-text-field-button" v-if="props.button">{{ props.button }}</button>
   </div>
 </template>
 
 <style scoped>
-.text-field {
+.iwy-text-field {
   display: inline-flex;
+  height: 40px;
 }
 
-.text-field-inner {
+.iwy-text-field-inner {
   display: inline-flex;
   position: relative;
   flex-direction: row;
+  align-items: center;
   gap: 10px;
   width: 100%;
   padding: 6px 12px;
@@ -48,7 +50,7 @@ const focus = ref(false);
   border-bottom-right-radius: v-bind("props.button ? '0' : '5px'");
 }
 
-.text-field-input {
+.iwy-text-field-input {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -59,25 +61,30 @@ const focus = ref(false);
   color: v-bind("props.invalid ? theme.colRed : theme.colFg1");
 }
 
-.text-field-input::placeholder {
+.iwy-text-field-input::placeholder {
   opacity: 1;
 }
 
-.text-field-input::selection {
+.iwy-text-field-input:focus::placeholder {
+  color: transparent;
+}
+
+.iwy-text-field-input::selection {
   background-color: v-bind("theme.colFg1");
   color: v-bind("theme.colBg1");
 }
 
-.text-field-show-password:hover {
+.iwy-text-field-show-password:hover {
   cursor: pointer;
 }
 
-.text-field button {
+.iwy-text-field-button {
   padding-left: 10px;
   padding-right: 10px;
   border: none;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  font-size: 16px;
   font-weight: bold;
   border: 2px solid v-bind("props.invalid ? theme.colRed : theme.colFg1");
   background-color: v-bind("props.invalid ? theme.colRed : theme.colFg1");
@@ -85,7 +92,7 @@ const focus = ref(false);
   cursor: pointer;
 }
 
-.text-field button:active {
+.iwy-text-field button:active {
   background-color: v-bind("theme.colBg1");
   color: v-bind("props.invalid ? theme.colRed : theme.colFg1");
 }
