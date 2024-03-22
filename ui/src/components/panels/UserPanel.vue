@@ -1,11 +1,31 @@
 <script setup>
-import DashboardPanel from '../DashboardPanel.vue';
-import IwyButton from '../iwy/IwyButton.vue';
+import { onMounted, ref } from "vue";
+
+import IwyButton from "../iwy/IwyButton.vue";
+import IwyTextField from "../iwy/IwyTextField.vue";
+import IwyTableView from "../iwy/IwyTableView.vue";
+
+import DashboardPanel from "../DashboardPanel.vue";
 
 import { useAppStore } from "@/storages/useAppStore";
-import IwyTextField from '../iwy/IwyTextField.vue';
 const appStore = useAppStore();
 const { theme } = appStore;
+
+const userTable = ref(null);
+
+onMounted(() => {
+  userTable.value.addColumn("username");
+  userTable.value.addColumn("email");
+  userTable.value.addColumn("created");
+  userTable.value.addColumn("enabled");
+
+  userTable.value.addRow({
+    username: "vincent",
+    email: "vincent@example.com",
+    created: new Date(),
+    enabled: true
+  });
+});
 </script>
 
 <template>
@@ -18,37 +38,10 @@ const { theme } = appStore;
         <IwyButton icon="minus" label="Remove" />
         <IwyButton icon="export" label="Export" />
       </div>
-      <table>
-        <tr>
-          <th></th>
-          <th>Username</th>
-          <th>E-Mail</th>
-          <th>Created</th>
-          <th>Enabled</th>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td>vincent</td>
-          <td>vincent@example.com</td>
-          <td>2024-03-15</td>
-          <td>true</td>
-        </tr>
-      </table>
+      <IwyTableView ref="userTable" />
     </div>
   </DashboardPanel>
 </template>
 
 <style scoped>
-table, th, td {
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 5px 10px;
-  border: 2px solid v-bind("theme.colFg1");
-}
-
-th {
-  text-align: left;
-}
 </style>
