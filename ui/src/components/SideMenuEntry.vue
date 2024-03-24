@@ -9,13 +9,11 @@ const props = defineProps({
   label: String,
   icon: String
 });
-
-const entryDash = inject("entryDash");
 </script>
 
 <template>
-  <div class="side-menu-entry" v-bind:class="`side-menu-entry-dash-${entryDash}`">
-    <IwyIcon v-if="props.icon" v-bind:name="props.icon" v-bind:fill="theme.colFg" />
+  <div class="side-menu-entry">
+    <IwyIcon v-if="props.icon" :name="props.icon" :fill="theme.colFg" />
     <span>{{ props.label }}</span>
   </div>
 </template>

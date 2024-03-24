@@ -6,33 +6,20 @@ const appStore = useAppStore();
 const { theme } = appStore;
 
 const props = defineProps({
-  width: String,
-  height: String,
-  top: String,
-  position: {
-    type: String,
-    default: "left",
-    validator(value) {
-      return ["left", "right"].includes(value);
-    }
-  },
-  entryDash: {
-    type: String,
-    default: "none",
-    validator(value) {
-      return ["none", "left", "right"].includes(value);
-    }
-  },
+  // width: String,
+  // height: String,
+  // top: String,
+  // position: {
+  //   type: String,
+  //   default: "left",
+  //   validator(value) {
+  //     return ["left", "right"].includes(value);
+  //   }
+  // },
   open: {
     type: Boolean,
     default: true
   }
-});
-
-provide("entryDash", props.entryDash);
-
-const right = computed(() => {
-  return props.position === "right" ? "0px" : "initial";
 });
 </script>
 
@@ -44,13 +31,10 @@ const right = computed(() => {
 
 <style scoped>
 .side-menu {
+  display: v-bind("props.open ? 'initial' : 'none'");
   box-sizing: border-box;
-  position: absolute;
-  overflow: scroll;
-  top: v-bind("props.top");
-  right: v-bind(right);
-  width: v-bind("props.open ? props.width : '0px'");
-  height: v-bind("props.height");
+  /* width: v-bind("props.width"); */
+  /* height: v-bind("props.height"); */
   background-color: v-bind("theme.colBg");
 }
 </style>

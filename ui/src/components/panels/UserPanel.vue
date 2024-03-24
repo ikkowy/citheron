@@ -38,7 +38,7 @@ onMounted(() => {
       <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px">
         <IwyTextField icon="search" button="Search" />
         <IwyButton icon="filter" label="Filter" />
-        <IwyButton icon="" label="View" />
+        <IwyButton icon="binoculars" label="View" />
         <IwyButton icon="plus" label="Create" />
         <IwyButton icon="minus" label="Remove" />
         <IwyButton icon="export" label="Export" />
