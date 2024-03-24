@@ -51,6 +51,6 @@ const right = computed(() => {
   right: v-bind(right);
   width: v-bind("props.open ? props.width : '0px'");
   height: v-bind("props.height");
-  background-color: v-bind("theme.colBg1");
+  background-color: v-bind("theme.colBg");
 }
 </style>

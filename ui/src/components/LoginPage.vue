@@ -30,7 +30,7 @@
 #login-page {
   height: 100vh;
   text-align: center;
-  background-color: v-bind("theme.colBg1");
+  background-color: v-bind("theme.colBg");
 }
 
 #login-form {
@@ -42,7 +42,7 @@
   margin-left: auto;
   margin-right: auto;
   padding: 20px;
-  border: 2px solid v-bind("theme.colFg1");
+  border: 2px solid v-bind("theme.colFg");
   border-radius: 5px;
 }
 </style>

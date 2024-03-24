@@ -147,15 +147,15 @@ main {
   right: 0;
   width: calc(100% - v-bind("sideMenuOpen && sideMenuPinned ? `${sideMenuWidth}` : '0px'"));
   height: 100%;
-  background-color: v-bind("theme.colBg1");
+  background-color: v-bind("theme.colBg");
 }
 
 #side-menu {
-  border-right: v-bind("!sideMenuOpen || menusExpanded ? 'none' : `2px solid ${theme.colFg1}`");
+  border-right: v-bind("!sideMenuOpen || menusExpanded ? 'none' : `2px solid ${theme.colFg}`");
 }
 
 #user-menu {
-  border-left: v-bind("!userMenuOpen || menusExpanded ? 'none' : `2px solid ${theme.colFg1}`");
-  border-bottom: 2px solid v-bind("theme.colFg1");
+  border-left: v-bind("!userMenuOpen || menusExpanded ? 'none' : `2px solid ${theme.colFg}`");
+  border-bottom: 2px solid v-bind("theme.colFg");
 }
 </style>

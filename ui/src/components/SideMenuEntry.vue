@@ -15,7 +15,7 @@ const entryDash = inject("entryDash");
 
 <template>
   <div class="side-menu-entry" v-bind:class="`side-menu-entry-dash-${entryDash}`">
-    <IwyIcon v-if="props.icon" v-bind:name="props.icon" v-bind:fill="theme.colFg2" />
+    <IwyIcon v-if="props.icon" v-bind:name="props.icon" v-bind:fill="theme.colFg" />
     <span>{{ props.label }}</span>
   </div>
 </template>
@@ -31,23 +31,23 @@ const entryDash = inject("entryDash");
   padding-right: 20px;
   border-left: none;
   border-right: none;
-  background-color: v-bind("theme.colBg1");
-  color: v-bind("theme.colFg2");
+  background-color: v-bind("theme.colBg");
+  color: v-bind("theme.colFg");
   user-select: none;
 }
 
 .side-menu-entry:hover {
   cursor: pointer;
-  background-color: v-bind("theme.colFg1");
-  color: v-bind("theme.colBg1");
+  background-color: v-bind("theme.colFg");
+  color: v-bind("theme.colBg");
 }
 
 .side-menu-entry svg {
-  fill: v-bind("theme.colFg1");
+  fill: v-bind("theme.colFg");
 }
 
 .side-menu-entry:hover svg {
-  fill: v-bind("theme.colBg1");
+  fill: v-bind("theme.colBg");
 }
 
 .side-menu-entry span {

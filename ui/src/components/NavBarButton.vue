@@ -58,23 +58,23 @@ const hovered = ref(false);
   align-items: center;
   height: 100%;
   aspect-ratio: 1 / 1;
-  background-color: v-bind("theme.colBg1");
+  background-color: v-bind("theme.colBg");
   cursor: pointer;
 }
 
 .header-button:hover {
-  background-color: v-bind("theme.colFg1");
+  background-color: v-bind("theme.colFg");
 }
 
 .header-button svg {
   display: block;
   margin: auto;
   width: 70%;
-  fill: v-bind("theme.colFg1");
+  fill: v-bind("theme.colFg");
 }
 
 .header-button:hover svg {
-  fill: v-bind("theme.colBg1");
+  fill: v-bind("theme.colBg");
 }
 
 .header-button span {
@@ -84,7 +84,7 @@ const hovered = ref(false);
   bottom: 2px;
   padding: 1px 2px;
   background-color: v-bind("theme.colRed");
-  color: v-bind("theme.colLight2");
+  color: white;
   font-size: 10px;
   font-weight: bold;
   border-radius: 15%;
@@ -92,10 +92,10 @@ const hovered = ref(false);
 }
 
 .header-button.active {
-  background-color: v-bind("theme.colFg1");
+  background-color: v-bind("theme.colFg");
 }
 
 .header-button.active svg {
-  fill: v-bind("theme.colBg1");
+  fill: v-bind("theme.colBg");
 }
 </style>

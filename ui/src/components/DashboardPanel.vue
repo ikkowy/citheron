@@ -14,6 +14,6 @@ const { theme } = appStore;
 .dashboard-panel {
   height: 100%;
   padding: 10px;
-  color: v-bind("theme.colFg1");
+  color: v-bind("theme.colFg");
 }
 </style>

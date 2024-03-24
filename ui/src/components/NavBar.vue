@@ -14,7 +14,7 @@ const { theme } = appStore;
 .navbar {
   width: 100%;
   height: 40px;
-  background-color: v-bind("theme.colBg1");
-  border-bottom: 2px solid v-bind("theme.colFg1");
+  background-color: v-bind("theme.colBg");
+  border-bottom: 2px solid v-bind("theme.colFg");
 }
 </style>

@@ -1,8 +1,13 @@
 <script setup>
 import { ref } from "vue";
 
+import { useAppStore } from "@/storages/useAppStore";
+const appStore = useAppStore();
+const { theme } = appStore;
+
 const props = defineProps({
-  lineNumbers: Boolean
+  lineNumbers: Boolean,
+  highlightLines: Boolean
 });
 
 const table = ref(null);
@@ -40,9 +45,11 @@ defineExpose({
 <template>
   <table class="iwy-table-view" ref="table">
     <tr ref="header">
+      <th v-if="props.lineNumbers" style="text-align: center">#</th>
       <th v-for="column in columns">{{ column }}</th>
     </tr>
-    <tr v-for="record in records">
+    <tr v-for="(record, index) in records">
+      <td v-if="props.lineNumbers" style="text-align: right">{{ index + 1 }}</td>
       <td v-for="column in columns">{{ record[column] }}</td>
     </tr>
   </table>
@@ -55,7 +62,7 @@ defineExpose({
 
 table, th, td {
   border-collapse: collapse;
-  border: 2px solid;
+  border: 2px solid v-bind("theme.colFg");
 }
 
 th, td {
@@ -64,5 +71,9 @@ th, td {
 
 th {
   text-align: left;
+}
+
+tr:not(:first-child):hover {
+  background-color: v-bind("props.highlightLines ? 'red' : 'initial'");
 }
 </style>

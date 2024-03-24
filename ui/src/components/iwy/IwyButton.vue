@@ -38,27 +38,26 @@ const toggled = ref(false);
 }
 
 .iwy-button span {
-  height: 16px;
   font-size: 16px;
   font-weight: bold;
 }
 
 .iwy-button {
-  border: 2px solid v-bind("theme.colFg1");
-  background-color: v-bind("theme.colFg1");
-  color: v-bind("theme.colBg1");
+  border: 2px solid v-bind("theme.colFg");
+  background-color: v-bind("theme.colFg");
+  color: v-bind("theme.colBg");
 }
 
 .iwy-button:active {
-  background-color: v-bind("theme.colBg1");
-  color: v-bind("theme.colFg1");
+  background-color: v-bind("theme.colBg");
+  color: v-bind("theme.colFg");
 }
 
 .iwy-button svg {
-  fill: v-bind("theme.colBg1");
+  fill: v-bind("theme.colBg");
 }
 
 .iwy-button:active svg {
-  fill: v-bind("theme.colFg1");
+  fill: v-bind("theme.colFg");
 }
 </style>

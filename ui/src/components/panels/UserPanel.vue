@@ -2,14 +2,11 @@
 import { onMounted, ref } from "vue";
 
 import IwyButton from "../iwy/IwyButton.vue";
+import IwyGroupBox from "../iwy/IwyGroupBox.vue";
 import IwyTextField from "../iwy/IwyTextField.vue";
 import IwyTableView from "../iwy/IwyTableView.vue";
 
 import DashboardPanel from "../DashboardPanel.vue";
-
-import { useAppStore } from "@/storages/useAppStore";
-const appStore = useAppStore();
-const { theme } = appStore;
 
 const userTable = ref(null);
 
@@ -25,20 +22,34 @@ onMounted(() => {
     created: new Date(),
     enabled: true
   });
+
+  userTable.value.addRow({
+    username: "helga",
+    email: "helga@example.com",
+    created: new Date(),
+    enabled: true
+  });
 });
 </script>
 
 <template>
   <DashboardPanel>
-    <div style="display: flex; flex-direction: column; gap: 10px">
-      <div style="display: flex; flex-direction: row; gap: 10px">
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px">
         <IwyTextField icon="search" button="Search" />
         <IwyButton icon="filter" label="Filter" />
+        <IwyButton icon="" label="View" />
         <IwyButton icon="plus" label="Create" />
         <IwyButton icon="minus" label="Remove" />
         <IwyButton icon="export" label="Export" />
       </div>
-      <IwyTableView ref="userTable" />
+      <IwyGroupBox title="Filter" :minimizable="true">
+        Fitler stuff
+      </IwyGroupBox>
+      <IwyGroupBox title="View" :minimizable="true">
+        View stuff
+      </IwyGroupBox>
+      <IwyTableView ref="userTable" :line-numbers="true" :highlight-lines="true" />
     </div>
   </DashboardPanel>
 </template>

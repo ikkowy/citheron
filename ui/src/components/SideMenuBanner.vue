@@ -38,11 +38,11 @@ const props = defineProps({
   <div class="side-menu-banner" v-if="props.caption || props.buttonLeftEnabled || props.buttonRightEnabled">
     <a v-if="props.buttonLeftEnabled && props.buttonLeftIcon" v-on:click="props.buttonLeftAction()"
       v-bind:class="{ 'side-menu-banner-button': true, 'left': true, 'active': props.buttonLeftActive }">
-      <iwy-icon v-bind:name="props.buttonLeftIcon" v-bind:fill="theme.colFg2" />
+      <iwy-icon v-bind:name="props.buttonLeftIcon" v-bind:fill="theme.colFg" />
     </a>
     <a v-if="props.buttonRightEnabled && props.buttonRightIcon" v-on:click="props.buttonRightAction()"
       v-bind:class="{ 'side-menu-banner-button': true, 'right': true, 'active': props.buttonRightActive }">
-      <iwy-icon v-bind:name="props.buttonRightIcon" v-bind:fill="theme.colFg2" />
+      <iwy-icon v-bind:name="props.buttonRightIcon" v-bind:fill="theme.colFg" />
     </a>
     <span v-if="props.caption">{{ props.caption }}</span>
   </div>
@@ -55,14 +55,14 @@ const props = defineProps({
   align-items: center;
   height: 40px;
   font-weight: bold;
-  color: v-bind("theme.colFg2");
+  color: v-bind("theme.colFg");
   user-select: none;
 }
 
 .side-menu-banner span {
   padding: 6px 8px;
-  background-color: v-bind("theme.colFg1");
-  color: v-bind("theme.colBg1");
+  background-color: v-bind("theme.colFg");
+  color: v-bind("theme.colBg");
   border-radius: 7px;
   height: 1em;
 }
@@ -78,19 +78,20 @@ const props = defineProps({
 }
 
 .side-menu-banner-button svg {
-  fill: v-bind("theme.colFg1");
+  fill: v-bind("theme.colFg");
 }
 
 .side-menu-banner-button:not(.active) svg {
-  fill: #505050;
+  fill: gray;
+  cursor: not-allowed;
 }
 
 .side-menu-banner-button.active:hover {
-  background-color: v-bind("theme.colFg1");
+  background-color: v-bind("theme.colFg");
 }
 
 .side-menu-banner-button.active:hover svg {
-  fill: v-bind("theme.colBg1");
+  fill: v-bind("theme.colBg");
 }
 
 .side-menu-banner-button.left {
