@@ -21,9 +21,22 @@ const focus = ref(false);
 <template>
   <div class="iwy-text-field" v-bind:width="props.width">
     <div class="iwy-text-field-inner">
-      <IwyIcon v-if="props.icon" v-bind:fill="props.invalid ? theme.colRed : theme.colFg" v-bind:name="props.icon" />
-      <input class="iwy-text-field-input" v-bind:type="props.password && !showPassword ? 'password' : 'text'" v-bind:placeholder="props.placeholder" v-on:focusin="focus = true" v-on:focusout="focus = false">
-      <IwyIcon class="iwy-text-field-show-password" v-bind:fill="props.invalid ? theme.colRed : theme.colFg" v-bind:name="showPassword ? 'eye-off' : 'eye'" v-if="props.password" v-on:click="showPassword = !showPassword" />
+      <IwyIcon
+          v-if="props.icon"
+          :fill="props.invalid ? theme.colRed : theme.colFg"
+          :name="props.icon" />
+      <input
+          class="iwy-text-field-input"
+          :type="props.password && !showPassword ? 'password' : 'text'"
+          :placeholder="props.placeholder"
+          @focusin="focus = true"
+          @focusout="focus = false">
+      <IwyIcon
+          class="iwy-text-field-show-password"
+          :fill="props.invalid ? theme.colRed : theme.colFg"
+          :name="showPassword ? 'eye-off' : 'eye'"
+          v-if="props.password"
+          @click="showPassword = !showPassword" />
     </div>
     <button class="iwy-text-field-button" v-if="props.button">{{ props.button }}</button>
   </div>
@@ -63,6 +76,7 @@ const focus = ref(false);
 
 .iwy-text-field-input::placeholder {
   opacity: 1;
+  font-style: italic;
 }
 
 .iwy-text-field-input:focus::placeholder {

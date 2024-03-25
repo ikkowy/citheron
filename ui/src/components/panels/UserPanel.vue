@@ -9,6 +9,7 @@ import IwyTableView from "../iwy/IwyTableView.vue";
 import DashboardPanel from "../DashboardPanel.vue";
 
 const userTable = ref(null);
+const filterButton = ref(null);
 
 onMounted(() => {
   userTable.value.addColumn("username");
@@ -37,8 +38,8 @@ onMounted(() => {
     <div style="display: flex; flex-direction: column; gap: 20px">
       <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px">
         <IwyTextField icon="search" button="Search" />
-        <IwyButton icon="filter" label="Filter" />
-        <IwyButton icon="binoculars" label="View" />
+        <IwyButton icon="filter" label="Filter" ref="filterButton" toggle />
+        <IwyButton icon="binoculars" label="View" toggle />
         <IwyButton icon="plus" label="Create" />
         <IwyButton icon="minus" label="Remove" />
         <IwyButton icon="export" label="Export" />

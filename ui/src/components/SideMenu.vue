@@ -6,16 +6,6 @@ const appStore = useAppStore();
 const { theme } = appStore;
 
 const props = defineProps({
-  // width: String,
-  // height: String,
-  // top: String,
-  // position: {
-  //   type: String,
-  //   default: "left",
-  //   validator(value) {
-  //     return ["left", "right"].includes(value);
-  //   }
-  // },
   open: {
     type: Boolean,
     default: true
@@ -33,8 +23,6 @@ const props = defineProps({
 .side-menu {
   display: v-bind("props.open ? 'initial' : 'none'");
   box-sizing: border-box;
-  /* width: v-bind("props.width"); */
-  /* height: v-bind("props.height"); */
   background-color: v-bind("theme.colBg");
 }
 </style>

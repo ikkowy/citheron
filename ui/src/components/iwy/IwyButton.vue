@@ -7,14 +7,25 @@ const { theme } = appStore;
 
 const props = defineProps({
   label: String,
-  icon: String
+  icon: String,
+  toggle: Boolean
 });
 
 const toggled = ref(false);
+
+function toggle() {
+  if (props.toggle || toggled.value) {
+    toggled.value = !toggled.value;
+  }
+}
+
+defineExpose({
+  toggled
+});
 </script>
 
 <template>
-  <button class="iwy-button">
+  <button class="iwy-button" @click="toggle()" :class="{ 'toggled': toggled }">
     <IwyIcon v-if="props.icon" v-bind:name="props.icon" />
     <span v-if="props.label">{{ props.label }}</span>
   </button>
@@ -48,7 +59,7 @@ const toggled = ref(false);
   color: v-bind("theme.colBg");
 }
 
-.iwy-button:active {
+.iwy-button:active, .iwy-button.toggled {
   background-color: v-bind("theme.colBg");
   color: v-bind("theme.colFg");
 }
@@ -57,7 +68,7 @@ const toggled = ref(false);
   fill: v-bind("theme.colBg");
 }
 
-.iwy-button:active svg {
+.iwy-button:active svg, .iwy-button.toggled svg {
   fill: v-bind("theme.colFg");
 }
 </style>
