@@ -44,13 +44,13 @@ onMounted(() => {
         <IwyButton icon="minus" label="Remove" />
         <IwyButton icon="export" label="Export" />
       </div>
-      <IwyGroupBox title="Filter" :minimizable="true">
+      <IwyGroupBox title="Filter" minimizable>
         Fitler stuff
       </IwyGroupBox>
-      <IwyGroupBox title="View" :minimizable="true">
+      <IwyGroupBox title="View" minimizable>
         View stuff
       </IwyGroupBox>
-      <IwyTableView ref="userTable" :line-numbers="true" :highlight-lines="true" />
+      <IwyTableView ref="userTable" line-numbers highlight-lines />
     </div>
   </DashboardPanel>
 </template>

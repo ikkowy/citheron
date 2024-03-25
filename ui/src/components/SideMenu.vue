@@ -15,7 +15,7 @@ const props = defineProps({
 
 <template>
   <aside class="side-menu">
-    <slot />
+    <slot></slot>
   </aside>
 </template>
 

@@ -23,10 +23,10 @@ const { theme } = appStore;
       </div>
 
       <div style="display: flex; gap: 10px">
-        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colRed}`"></div>
-        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colBlue}`"></div>
-        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colGreen}`"></div>
-        <div v-bind:style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colYellow}`"></div>
+        <div :style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colRed}`"></div>
+        <div :style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colBlue}`"></div>
+        <div :style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colGreen}`"></div>
+        <div :style="`display: inline-block; width: 100px; height: 100px; background-color: ${theme.colYellow}`"></div>
       </div>
     </div>
   </DashboardPanel>

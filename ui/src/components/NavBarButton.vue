@@ -41,10 +41,10 @@ const hovered = ref(false);
 
 <template>
   <a class="header-button"
-      v-bind:style="floatStyle"
-      v-on:mouseover="hovered = true"
-      v-on:mouseleave="hovered = false"
-      v-bind:class="{ 'active': props.active }">
+     :style="floatStyle"
+     @mouseover="hovered = true"
+     @mouseleave="hovered = false"
+     :class="{ 'active': props.active }">
     <iwy-icon v-bind:name="props.icon" />
     <span v-if="counterText">{{ counterText }}</span>
   </a>

@@ -6,7 +6,7 @@ const { theme } = appStore;
 
 <template>
   <header class="navbar">
-    <slot />
+    <slot></slot>
   </header>
 </template>
 

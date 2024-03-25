@@ -14,9 +14,9 @@
   <div id="login-page">
     <NavBar>
       <NavBarButton
-      v-bind:icon="appStore.darkModeEnabled ? 'dark' : 'light'"
-      v-on:click="toggleDarkMode()"
-      float="right" />
+          :icon="appStore.darkModeEnabled ? 'dark' : 'light'"
+          @click="toggleDarkMode()"
+          float="right" />
     </NavBar>
     <form id="login-form">
       <IwyTextField placeholder="Username" icon="user" width="100%"/>

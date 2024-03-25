@@ -29,7 +29,7 @@ const minimized = ref(props.minimized);
                style="cursor: pointer" />
       <span class="iwy-group-box-title">{{ props.title }}</span>
     </span>
-    <slot v-if="!minimized" />
+    <slot v-if="!minimized"></slot>
   </section>
 </template>
 

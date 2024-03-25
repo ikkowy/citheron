@@ -6,7 +6,7 @@ const { theme } = appStore;
 
 <template>
   <div class="dashboard-panel">
-    <slot />
+    <slot></slot>
   </div>
 </template>
 

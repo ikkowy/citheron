@@ -36,13 +36,15 @@ const props = defineProps({
 
 <template>
   <div class="side-menu-banner" v-if="props.caption || props.buttonLeftEnabled || props.buttonRightEnabled">
-    <a v-if="props.buttonLeftEnabled && props.buttonLeftIcon" v-on:click="props.buttonLeftAction()"
-      v-bind:class="{ 'side-menu-banner-button': true, 'left': true, 'active': props.buttonLeftActive }">
-      <iwy-icon v-bind:name="props.buttonLeftIcon" v-bind:fill="theme.colFg" />
+    <a v-if="props.buttonLeftEnabled && props.buttonLeftIcon"
+       @click="props.buttonLeftAction()"
+       :class="{ 'side-menu-banner-button': true, 'left': true, 'active': props.buttonLeftActive }">
+      <iwy-icon :name="props.buttonLeftIcon" :fill="theme.colFg" />
     </a>
-    <a v-if="props.buttonRightEnabled && props.buttonRightIcon" v-on:click="props.buttonRightAction()"
-      v-bind:class="{ 'side-menu-banner-button': true, 'right': true, 'active': props.buttonRightActive }">
-      <iwy-icon v-bind:name="props.buttonRightIcon" v-bind:fill="theme.colFg" />
+    <a v-if="props.buttonRightEnabled && props.buttonRightIcon"
+       @click="props.buttonRightAction()"
+       :class="{ 'side-menu-banner-button': true, 'right': true, 'active': props.buttonRightActive }">
+      <iwy-icon :name="props.buttonRightIcon" :fill="theme.colFg" />
     </a>
     <span v-if="props.caption">{{ props.caption }}</span>
   </div>
