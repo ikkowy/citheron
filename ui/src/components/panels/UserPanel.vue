@@ -10,6 +10,7 @@ import DashboardPanel from "../DashboardPanel.vue";
 
 const userTable = ref(null);
 const filterButton = ref(null);
+const viewButton = ref(null);
 
 onMounted(() => {
   userTable.value.addColumn("username");
@@ -37,22 +38,23 @@ onMounted(() => {
   <DashboardPanel>
     <div style="display: flex; flex-direction: column; gap: 20px">
       <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px">
-        <IwyTextField icon="search" button="Search" />
+        <IwyTextField icon="search" button="Search" placeholder="Quick Search" />
         <IwyButton icon="filter" label="Filter" ref="filterButton" toggle />
-        <IwyButton icon="binoculars" label="View" toggle />
+        <IwyButton icon="binoculars" label="View" ref="viewButton" toggle />
         <IwyButton icon="plus" label="Create" />
         <IwyButton icon="minus" label="Remove" />
         <IwyButton icon="export" label="Export" />
       </div>
-      <IwyGroupBox title="Filter" minimizable>
+      <IwyGroupBox title="Filter" minimizable v-if="filterButton?.toggled">
         Fitler stuff
       </IwyGroupBox>
-      <IwyGroupBox title="View" minimizable>
+      <IwyGroupBox title="View" minimizable v-if="viewButton?.toggled">
         View stuff
       </IwyGroupBox>
-      <IwyTableView ref="userTable" line-numbers highlight-lines />
+      <IwyTableView ref="userTable" line-numbers highlight-hovered-line selectable-lines />
     </div>
   </DashboardPanel>
+
 </template>
 
 <style scoped>

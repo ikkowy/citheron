@@ -12,7 +12,7 @@ import SideMenuEntry from "./SideMenuEntry.vue";
 import SideMenuSection from "./SideMenuSection.vue";
 import SideMenuBanner from "./SideMenuBanner.vue";
 
-import DemoPanel from "./panels/DemoPanel.vue";
+// import DemoPanel from "./panels/DemoPanel.vue";
 import UserPanel from "./panels/UserPanel.vue";
 
 const appWidth = ref(window.innerWidth);

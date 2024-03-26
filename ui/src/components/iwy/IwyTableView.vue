@@ -7,7 +7,8 @@ const { theme } = appStore;
 
 const props = defineProps({
   lineNumbers: Boolean,
-  highlightLines: Boolean
+  highlightHoveredLine: Boolean,
+  selectableLines: Boolean
 });
 
 const table = ref(null);
@@ -29,8 +30,8 @@ function addColumn(column, title=null) {
   columns.value.push(column);
 }
 
-function changeColumnTitle(column, title) {
-}
+// function changeColumnTitle(column, title) {
+// }
 
 function addRow(record) {
   records.value.push(record);
@@ -45,12 +46,14 @@ defineExpose({
 <template>
   <table class="iwy-table-view" ref="table">
     <tr ref="header">
+      <th v-if="props.selectableLines"></th>
       <th v-if="props.lineNumbers" style="text-align: center">#</th>
-      <th v-for="column in columns">{{ column }}</th>
+      <th v-for="column in columns" :key="column">{{ column }}</th>
     </tr>
-    <tr v-for="(record, index) in records">
+    <tr v-for="(record, index) in records" :key="index">
+      <td v-if="props.selectableLines"><input type="checkbox"></td>
       <td v-if="props.lineNumbers" style="text-align: right">{{ index + 1 }}</td>
-      <td v-for="column in columns">{{ record[column] }}</td>
+      <td v-for="column in columns" :key="column">{{ record[column] }}</td>
     </tr>
   </table>
 </template>
@@ -74,6 +77,6 @@ th {
 }
 
 tr:not(:first-child):hover {
-  background-color: v-bind("props.highlightLines ? 'red' : 'initial'");
+  background-color: v-bind("props.highlightHoveredLine ? 'red' : 'initial'");
 }
 </style>

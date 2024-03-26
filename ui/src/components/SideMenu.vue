@@ -1,6 +1,4 @@
 <script setup>
-import { computed, provide } from "vue";
-
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme } = appStore;

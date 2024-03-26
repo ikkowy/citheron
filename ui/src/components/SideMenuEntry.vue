@@ -1,6 +1,4 @@
 <script setup>
-import { inject } from "vue";
-
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme } = appStore;

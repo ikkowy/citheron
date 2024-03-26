@@ -13,7 +13,7 @@ const props = defineProps({
 
 const toggled = ref(false);
 
-function toggle() {
+function toggle_() {
   if (props.toggle || toggled.value) {
     toggled.value = !toggled.value;
   }
@@ -25,7 +25,7 @@ defineExpose({
 </script>
 
 <template>
-  <button class="iwy-button" @click="toggle()" :class="{ 'toggled': toggled }">
+  <button class="iwy-button" @click="toggle_()" :class="{ 'toggled': toggled }">
     <IwyIcon v-if="props.icon" v-bind:name="props.icon" />
     <span v-if="props.label">{{ props.label }}</span>
   </button>
@@ -55,20 +55,20 @@ defineExpose({
 
 .iwy-button {
   border: 2px solid v-bind("theme.colFg");
-  background-color: v-bind("theme.colFg");
-  color: v-bind("theme.colBg");
-}
-
-.iwy-button:active, .iwy-button.toggled {
   background-color: v-bind("theme.colBg");
   color: v-bind("theme.colFg");
 }
 
+.iwy-button:active, .iwy-button.toggled {
+  background-color: v-bind("theme.colFg");
+  color: v-bind("theme.colBg");
+}
+
 .iwy-button svg {
-  fill: v-bind("theme.colBg");
+  fill: v-bind("theme.colFg");
 }
 
 .iwy-button:active svg, .iwy-button.toggled svg {
-  fill: v-bind("theme.colFg");
+  fill: v-bind("theme.colBg");
 }
 </style>
