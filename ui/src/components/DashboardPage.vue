@@ -1,9 +1,13 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, watch, computed, onMounted } from "vue";
 
 import { useAppStore } from "@/storages/useAppStore";
 const appStore = useAppStore();
 const { theme, toggleDarkMode } = appStore;
+
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
+const route = useRoute();
 
 import NavBar from "./NavBar.vue";
 import NavBarButton from "./NavBarButton.vue";
@@ -12,8 +16,9 @@ import SideMenuEntry from "./SideMenuEntry.vue";
 import SideMenuSection from "./SideMenuSection.vue";
 import SideMenuBanner from "./SideMenuBanner.vue";
 
-// import DemoPanel from "./panels/DemoPanel.vue";
-import UserPanel from "./panels/UserPanel.vue";
+import AdminGroupsPanel from "./panels/AdminGroupsPanel.vue";
+import AdminUsersPanel from "./panels/AdminUsersPanel.vue";
+import HomePanel from "./panels/HomePanel.vue";
 
 const appWidth = ref(window.innerWidth);
 const appHeight = ref(window.innerHeight);
@@ -43,6 +48,12 @@ function closeMenus() {
 const sideMenuBannerCaption = ref("");
 const sideMenuPreviousSection = ref("");
 
+const activePanel = ref("");
+
+watch(() => route.query.panel, panel => {
+  activePanel.value = panel;
+});
+
 function changeSideMenuSection(name) {
   const sideMenu = document.getElementById("side-menu");
   const sideMenuSections = sideMenu.getElementsByClassName("side-menu-section");
@@ -63,6 +74,12 @@ function previousSideMenuSection() {
 
 onMounted(() => {
   changeSideMenuSection("apps");
+
+  if (route.query.panel == null) {
+    router.replace({ query: { panel: "home" } });
+  }
+
+  activePanel.value = route.query.panel;
 });
 </script>
 
@@ -88,7 +105,7 @@ onMounted(() => {
       <SideMenu id="side-menu" :open="sideMenuOpen">
         <SideMenuBanner
             :caption="sideMenuBannerCaption"
-            :button-left-active="sideMenuPreviousSection"
+            :button-left-active="sideMenuPreviousSection != null"
             :button-right-active="!menusExpanded"
             button-left-icon="chevron-left"
             :button-right-icon="sideMenuPinned ? 'pin-off' : 'pin'"
@@ -102,9 +119,9 @@ onMounted(() => {
           <SideMenuEntry label="Settings" icon="gear" @click="changeSideMenuSection('settings')" />
         </SideMenuSection>
         <SideMenuSection name="admin" caption="Administration" back="apps">
-          <SideMenuEntry label="Users" icon="user" />
-          <SideMenuEntry label="Groups" icon="group" />
-          <SideMenuEntry label="Authentication" icon="key" />
+          <SideMenuEntry label="Users" icon="user" @click="router.replace({ query: { panel: 'admin-users' } })" :active="activePanel === 'admin-users'" />
+          <SideMenuEntry label="Groups" icon="group" @click="router.replace({ query: { panel: 'admin-groups' } })" :active="activePanel === 'admin-groups'" />
+          <SideMenuEntry label="Authentication" icon="key" @click="router.replace({ query: { panel: 'admin-auth' } })" :active="activePanel === 'admin-auth'" />
         </SideMenuSection>
         <SideMenuSection name="settings" caption="Settings" back="apps">
           <SideMenuEntry label="Security" icon="lock" />
@@ -119,8 +136,9 @@ onMounted(() => {
       </SideMenu>
 
       <main v-if="!(menusExpanded && sideMenuOpen)" @click="closeMenus()">
-        <!-- <DemoPanel /> -->
-        <UserPanel />
+        <AdminGroupsPanel v-if="activePanel === 'admin-groups'" />
+        <AdminUsersPanel v-if="activePanel === 'admin-users'" />
+        <HomePanel v-if="activePanel === 'home'" />
       </main>
     </div>
   </div>

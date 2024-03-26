@@ -5,12 +5,13 @@ const { theme } = appStore;
 
 const props = defineProps({
   label: String,
-  icon: String
+  icon: String,
+  active: Boolean
 });
 </script>
 
 <template>
-  <div class="side-menu-entry">
+  <div class="side-menu-entry" :class="{ 'active': props.active }">
     <IwyIcon v-if="props.icon" :name="props.icon" :fill="theme.colFg" />
     <span>{{ props.label }}</span>
   </div>
@@ -32,7 +33,7 @@ const props = defineProps({
   user-select: none;
 }
 
-.side-menu-entry:hover {
+.side-menu-entry:hover, .side-menu-entry.active {
   cursor: pointer;
   background-color: v-bind("theme.colFg");
   color: v-bind("theme.colBg");
@@ -42,7 +43,7 @@ const props = defineProps({
   fill: v-bind("theme.colFg");
 }
 
-.side-menu-entry:hover svg {
+.side-menu-entry:hover svg, .side-menu-entry.active svg {
   fill: v-bind("theme.colBg");
 }
 
